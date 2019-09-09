@@ -58,20 +58,22 @@ $block: 'aside-nav';
             text-decoration: none;
         }
 
+        &--active {
+            background-color: $grey-100;
+
+            &::before {
+                border-left: 3px solid $primary;
+                bottom: 0;
+                content: '';
+                left: 0;
+                position: absolute;
+                top: 0;
+            }
+        }
+
         svg {
             margin-right: 0.75rem;
             vertical-align: top;
-        }
-    }
-    
-    &--active {
-        &::before {
-            border-left: 3px solid $grey-400;
-            bottom: 0;
-            content: '';
-            left: 0;
-            position: absolute;
-            top: 0;
         }
     }
 }
