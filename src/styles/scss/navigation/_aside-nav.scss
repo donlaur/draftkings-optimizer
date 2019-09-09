@@ -5,6 +5,7 @@ $block: 'aside-nav';
 .#{$block} {
     $horizontal-spacing: 2rem;
 
+    background-color: $white;
     border-right: 1px solid $grey-300;
     position: fixed;
     left: 0;

@@ -3,11 +3,13 @@
 body {
     @include default-font;
 
+    background-color: $grey-100;
     color: $grey-800;
     line-height: 1.5;
 }
 
 main {
+    background-color: $grey-100;
     margin-left: $aside-width;
     padding-top: $main-margin-top;
     padding-bottom: $main-margin-top;
