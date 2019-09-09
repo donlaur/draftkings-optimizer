@@ -1,0 +1,8 @@
+@import '../reference/index';
+
+$block: 'form-select';
+
+.#{$block} {
+    height: auto;
+    padding: 0.5rem 0.75rem;
+}

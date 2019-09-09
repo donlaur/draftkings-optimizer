@@ -1,0 +1,10 @@
+@import '../reference/index';
+
+$block: 'form-group';
+
+.#{$block} {
+    &__label {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+}

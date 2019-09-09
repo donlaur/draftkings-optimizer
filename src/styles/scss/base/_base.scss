@@ -1,0 +1,21 @@
+@import '../reference/index';
+
+body {
+    @include default-font;
+
+    color: $grey-800;
+    line-height: 1.5;
+}
+
+main {
+    margin-left: $aside-width;
+    padding-top: $main-margin-top;
+    padding-bottom: $main-margin-top;
+    position: relative;
+}
+
+a {
+    &:visited {
+        color: $grey-800;
+    }
+}
