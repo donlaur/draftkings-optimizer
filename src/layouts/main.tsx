@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Aside } from '../components/global/aside/aside-nav';
+import { Aside } from '../components/global/aside-nav';
 
 export function Main({ children }) {
     return (
