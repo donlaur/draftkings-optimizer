@@ -6,7 +6,16 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-typescript`,
-    `gatsby-plugin-sass`,
+    {
+			resolve: `gatsby-plugin-sass`,
+			options: {
+				postCssPlugins: [
+					require('postcss-inline-svg')({
+						path: 'src/'
+					})
+				]
+			}
+		},
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
