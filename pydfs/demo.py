@@ -52,5 +52,3 @@ def optimize():
     exporter = JSONLineupExporter(optimizer.optimize(1))
 
     return exporter.export()
-
-

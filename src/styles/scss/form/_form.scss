@@ -3,9 +3,15 @@
 $block: 'form';
 
 .#{$block} {
-    background-color: $grey-100;
+    // background-color: $grey-100;
     border-radius: 0.5rem;
     box-sizing: border-box;
     margin-bottom: 1.5rem;
-    padding: 1.5rem;
+    // padding: 1.5rem;
+
+    &__heading {
+        @include font-size-16;
+
+        text-transform: uppercase;
+    }
 }

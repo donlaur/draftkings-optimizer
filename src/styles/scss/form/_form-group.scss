@@ -3,8 +3,11 @@
 $block: 'form-group';
 
 .#{$block} {
+    &--baseline {
+        align-items: baseline;
+    }
+
     &__label {
-        display: block;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.25rem;
     }
 }
