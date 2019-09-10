@@ -51,27 +51,36 @@ $block: 'aside-nav';
         display: block;
         padding: 0.75rem $horizontal-spacing;
         position: relative;
+
+        &:visited {
+            color: $primary-white;
+        }
         
         @include hover-focus {
             background-color: $grey-aside;
             text-decoration: none;
         }
 
+        svg {
+            fill: $primary-white;
+            margin-right: 0.75rem;
+            vertical-align: top;
+        }
+
         &--active {
             background-color: $grey-aside;
-
+            
             &::before {
                 content: '';
             }
-        }
+            
+            &:visited {
+                color: $white;
+            }
 
-        &:visited {
-            color: $white;
-        }
-
-        svg {
-            margin-right: 0.75rem;
-            vertical-align: top;
+            svg {
+                fill: $white;
+            }
         }
     }
 }
