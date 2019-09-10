@@ -5,8 +5,7 @@ $block: 'aside-nav';
 .#{$block} {
     $horizontal-spacing: 2rem;
 
-    background-color: $white;
-    border-right: 1px solid $grey-300;
+    background-color: $grey-aside-dark;
     position: fixed;
     left: 0;
     top: 0;
@@ -17,11 +16,12 @@ $block: 'aside-nav';
         display: flex;
         flex-direction: column;
         height: 100%;
+        margin-top: $main-margin-top;
     }
     
     &__main {
-        margin-top: $main-margin-top;
         flex: 1;
+        margin-top: $main-margin-top;
     }
 
     &__footer {
@@ -31,7 +31,7 @@ $block: 'aside-nav';
     }
 
     &__heading {
-        color: $primary;
+        color: $white;
         font-size: 1.25rem;
         margin: 0;
         padding-left: $horizontal-spacing;
@@ -40,9 +40,7 @@ $block: 'aside-nav';
 
     &__list {
         list-style: none;
-        margin-bottom: 0;
-        margin-left: 0;
-        margin-top: 1.25rem;
+        margin: 0;
     }
 
     &__item {
@@ -55,21 +53,20 @@ $block: 'aside-nav';
         position: relative;
         
         @include hover-focus {
-            background-color: $grey-100;
+            background-color: $grey-aside;
             text-decoration: none;
         }
 
         &--active {
-            background-color: $grey-100;
+            background-color: $grey-aside;
 
             &::before {
-                border-left: 3px solid $primary;
-                bottom: 0;
                 content: '';
-                left: 0;
-                position: absolute;
-                top: 0;
             }
+        }
+
+        &:visited {
+            color: $white;
         }
 
         svg {

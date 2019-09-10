@@ -9,15 +9,9 @@ body {
 }
 
 main {
-    background-color: $grey-100;
+    // background-color: $grey-100;
     margin-left: $aside-width;
     padding-top: $main-margin-top;
     padding-bottom: $main-margin-top;
     position: relative;
-}
-
-a {
-    &:visited {
-        color: $grey-800;
-    }
 }
