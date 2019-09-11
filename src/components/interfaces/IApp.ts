@@ -1,3 +1,9 @@
+export interface IResponse {
+	lineups: ILineup[],
+	success: boolean,
+	message: string | null
+}
+
 export interface ILineup {
 	players: IPlayer[],
 	totalSalary: number,

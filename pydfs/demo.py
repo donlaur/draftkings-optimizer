@@ -5,13 +5,18 @@ import jsonpickle
 from flask import Flask, request
 from flask_restful import Api, Resource, reqparse
 from flask_cors import CORS
-from pydfs_lineup_optimizer import get_optimizer, Site, Sport, Player, JSONLineupExporter
+from pydfs_lineup_optimizer import get_optimizer, Site, Sport, Player, JSONLineupExporter, LineupOptimizerException
 from draft_kings.data import Sport as SportAPI
 from draft_kings.client import contests
 
 app = Flask(__name__)
 CORS(app, support_credentials=True)
 api = Api(app)
+
+def merge_two_dicts(x, y):
+    z = x.copy()   # start with x's keys and values
+    z.update(y)    # modifies z with y's keys and values & returns None
+    return z
 
 def transformPlayers(players):
     players = list(filter(lambda player: player["draftStatAttributes"][0]["value"] not in ['-'], players))
@@ -49,6 +54,21 @@ def optimize():
     optimizer = get_optimizer(Site.DRAFTKINGS, Sport.BASKETBALL)
     optimizer.load_players(players)
 
-    exporter = JSONLineupExporter(optimizer.optimize(1))
+    optimize = optimizer.optimize(1)
 
-    return exporter.export()
+    success = {
+        "success": True,
+        "message": None
+    }
+
+    try:
+        exporter = JSONLineupExporter(optimize)
+
+        exportedJSON = exporter.export()
+
+        return merge_two_dicts(exportedJSON, success)
+    except LineupOptimizerException as exception:
+        success["success"] = False
+        success["message"] = exception.message
+
+        return success

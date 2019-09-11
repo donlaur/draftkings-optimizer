@@ -23,32 +23,21 @@ export function Table( { data }: ITableProps) {
                         ) : <></>}
                     </tr>
 
-                    {data.map((lineup, i) => (
-                        <>
-                            {lineup.players.map((player) => (
-                                <tr key={player.id}>
-                                    <td>{player.id}</td>
-                                    <td>{player.positions}</td>
-                                    <td>{player.firstName}</td>
-                                    <td>{player.lastName}</td>
-                                    <td>{player.team}</td>
-                                    <td>{player.salary}</td>
-                                    <td>{player.fppg}</td>
-                                    {player.gameInfo ? (
-                                        <td>{player.gameInfo}</td>
-                                    ) : <></>}
-                                </tr>
-                            ))}
+                    {data.map((lineup, ) => (
+                        lineup.players.map((player, i) => (
                             <tr key={i}>
-                                <td><b>Total</b></td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>{lineup.totalSalary}</td>
-                                <td>{lineup.totalFppg}</td>
+                                <td>{player.id}</td>
+                                <td>{player.positions}</td>
+                                <td>{player.firstName}</td>
+                                <td>{player.lastName}</td>
+                                <td>{player.team}</td>
+                                <td>{player.salary}</td>
+                                <td>{player.fppg}</td>
+                                {player.gameInfo ? (
+                                    <td>{player.gameInfo}</td>
+                                ) : <></>}
                             </tr>
-                        </>
+                        ))
                     ))}
 
                 </tbody>
