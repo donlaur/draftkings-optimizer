@@ -13,12 +13,12 @@
     "gatsby-plugin-sharp": "^2.2.20",
     "gatsby-source-filesystem": "^2.1.21",
     "gatsby-transformer-sharp": "^2.2.13",
+    "normalize.css": "^8.0.1",
     "postcss-inline-svg": "^4.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-helmet": "^5.2.1",
-    "spectre.css": "^0.5.8"
+    "react-helmet": "^5.2.1"
   },
   "devDependencies": {
     "gatsby-plugin-sass": "^2.1.13",
