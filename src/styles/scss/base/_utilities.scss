@@ -1,0 +1,5 @@
+@import '../reference/index';
+
+.u-hidden {
+    @include hidden;
+}

@@ -57,18 +57,25 @@ export default function IndexPage() {
 
 	return (
 		<Main>
-			<form className="form form-horizontal">
-				<div className="form-group form-group--baseline form-inline">
-					<label className="form-group__label form-inline" htmlFor="select-contest">Choose a game</label>
-					<select className="form-select form-inline" defaultValue='' onChange={onContestChange} id="select-contest">
-						<option disabled value="">-</option>
-						{contests ? contests.contests.map((contest, i) => (
-							<option value={contest.draft_group_id} key={i}>{contest.draft_group_id} - {contest.name}</option>
-						)): ''}
-					</select>
-					{isError && errorMessage ? (
-						<p role="alert">{errorMessage}</p>
-					) : ''}
+			<form className="form">
+				<div className="row">
+					<div className="column">
+						<label className="form__label u-hidden" htmlFor="select-contest">Select a contest</label>
+						<div className="select">
+							<select className="select__input" defaultValue='' onChange={onContestChange} id="select-contest">
+								<option disabled value="">Select a contest</option>
+								{contests ? contests.contests.map((contest, i) => (
+									<option value={contest.draft_group_id} key={i}>{contest.draft_group_id} - {contest.name}</option>
+								)): ''}
+							</select>
+						</div>
+						{isError && errorMessage ? (
+							<p role="alert">{errorMessage}</p>
+						) : ''}
+					</div>
+					<div className="column">
+						<button className="button">Optimize</button>
+					</div>
 				</div>
 			</form>
 			{!isError ? (

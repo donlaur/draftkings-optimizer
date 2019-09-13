@@ -1,0 +1,7 @@
+@import '../reference/index';
+
+$block: 'button';
+
+.#{$block} {
+    @include button-dark;
+}
