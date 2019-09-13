@@ -59,7 +59,7 @@ export default function IndexPage() {
 		<Main>
 			<form className="form">
 				<div className="row">
-					<div className="column">
+					<div className="col col-8">
 						<label className="form__label u-hidden" htmlFor="select-contest">Select a contest</label>
 						<div className="select">
 							<select className="select__input" defaultValue='' onChange={onContestChange} id="select-contest">
@@ -73,7 +73,7 @@ export default function IndexPage() {
 							<p role="alert">{errorMessage}</p>
 						) : ''}
 					</div>
-					<div className="column">
+					<div className="col col-4">
 						<button className="button">Optimize</button>
 					</div>
 				</div>

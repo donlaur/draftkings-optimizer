@@ -9,6 +9,7 @@ module.exports = {
     {
 			resolve: `gatsby-plugin-sass`,
 			options: {
+        sourceMap: true,
 				postCssPlugins: [
 					require('postcss-inline-svg')({
 						path: 'src/'
