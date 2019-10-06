@@ -1,0 +1,40 @@
+@import '../reference/index';
+
+$block: 'input-dropdown';
+
+.#{$block} {
+    @include input-border;
+
+    display: flex;
+    position: relative;
+
+    &__input {
+        @include input;
+
+        flex: 1;
+    }
+
+    &__button {
+        background-color: none;
+        border: 0;
+        
+    }
+
+    &__list {
+        background-color: $white;
+        list-style: none;
+        margin-bottom: 0;
+        margin-top: 0;
+        max-height: 20rem;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        padding-left: 0;
+        position: absolute;
+        top: calc(100% + 1px);
+    }
+
+    &__item {
+        border-top: 1px solid $grey-200;
+        padding: 0.5rem 1rem;
+    }
+}

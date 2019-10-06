@@ -59,26 +59,30 @@ export default function IndexPage() {
 				<div className="form__row row">
 					<div className="col col-8">
 						<Downshift
-							onChange={selection =>
-								onContestChange(selection)
-						  	}	
+							onChange={selection => onContestChange(selection)}	
 							itemToString={item => (item ? item.value : '')}>
 							{({
+								getToggleButtonProps,
 								getMenuProps,
 								getInputProps,
 								getItemProps,
+								inputValue,
 								isOpen,
 								highlightedIndex,
 								selectedItem,
 							}) => (
-								<div className="text-input">
-									<label className="form__label u-hidden" htmlFor="select-contest">Select a contest</label>
-									<input className="text-input__input" {...getInputProps()} />
-									<ul {...getMenuProps()}>
+								<div className="input-dropdown">
+									<label className="form__label u-hidden" htmlFor="select-contest">Search a contest</label>
+									<input className="input-dropdown__input" {...getInputProps({
+										placeholder: "Search contest by ID or name"
+									})} />
+									<button className="input-dropdown__button" {...getToggleButtonProps()}>down</button>
+									<ul className="input-dropdown__list" {...getMenuProps()}>
 										{isOpen
 										? contests.contests
+											.filter((contest) => contest.name.includes(inputValue))
 											.map((item, index) => (
-												<li
+												<li className="input-dropdown__item"
 													{...getItemProps({
 														key: `${item.name}.${index}`,
 														index,
