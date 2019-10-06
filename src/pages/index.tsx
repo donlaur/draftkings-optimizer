@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import Downshift from 'downshift';
 
 import { get } from '../scripts/utilities/fetch';
 import { IContest, IGroup, ILineup, IResponse } from '../components/interfaces/IApp';
@@ -19,7 +20,6 @@ export default function IndexPage() {
 	const [isError, setIsError] = useState();
 	const [errorMessage, setErrorMessage] = useState();
 
-
 	useEffect(() => {
 		console.log(lineups);
 
@@ -36,11 +36,9 @@ export default function IndexPage() {
 	}, [lineups])
 
 	// Request from API once contest is chosen
-	const onContestChange = async (e: React.ChangeEvent<HTMLSelectElement>, OPTIMIZE = 'optimize') => {
-		const draftId = e.currentTarget.value;
-	
+	const onContestChange = async (draftSelection, OPTIMIZE = 'optimize') => {
 		try {
-            const response = await get(`${API}/${OPTIMIZE}?id=${draftId}`);
+            const response = await get(`${API}/${OPTIMIZE}?id=${draftSelection.draft_group_id}`);
 			const data = await response.json() as IResponse;
 
 			if (data.success) {
@@ -58,17 +56,51 @@ export default function IndexPage() {
 	return (
 		<Main>
 			<form className="form">
-				<div className="row">
+				<div className="form__row row">
 					<div className="col col-8">
-						<label className="form__label u-hidden" htmlFor="select-contest">Select a contest</label>
-						<div className="select">
+						<Downshift
+							onChange={selection =>
+								onContestChange(selection)
+						  	}	
+							itemToString={item => (item ? item.value : '')}>
+							{({
+								getMenuProps,
+								getInputProps,
+								getItemProps,
+								isOpen,
+								highlightedIndex,
+								selectedItem,
+							}) => (
+								<div className="text-input">
+									<label className="form__label u-hidden" htmlFor="select-contest">Select a contest</label>
+									<input className="text-input__input" {...getInputProps()} />
+									<ul {...getMenuProps()}>
+										{isOpen
+										? contests.contests
+											.map((item, index) => (
+												<li
+													{...getItemProps({
+														key: `${item.name}.${index}`,
+														index,
+														item
+													})}
+													>
+													{item.draft_group_id} - {item.name}
+												</li>
+											))
+										: null}
+									</ul>
+								</div>
+							)}
+						</Downshift>
+						{/* <div className="select">
 							<select className="select__input" defaultValue='' onChange={onContestChange} id="select-contest">
 								<option disabled value="">Select a contest</option>
 								{contests ? contests.contests.map((contest, i) => (
 									<option value={contest.draft_group_id} key={i}>{contest.draft_group_id} - {contest.name}</option>
 								)): ''}
 							</select>
-						</div>
+						</div> */}
 						{isError && errorMessage ? (
 							<p role="alert">{errorMessage}</p>
 						) : ''}
