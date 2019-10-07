@@ -7,3 +7,11 @@
     clip: rect(1px, 1px, 1px, 1px);
     white-space: nowrap; /* added line */
 }
+
+/// Make an element's text nodes be invisible.
+@mixin image-replacement {
+	border: 0;
+	color: transparent;
+	font: #{0/0};
+	text-shadow: none;
+}

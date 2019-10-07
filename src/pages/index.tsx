@@ -77,28 +77,29 @@ export default function IndexPage() {
 								selectedItem,
 							}) => (
 								<div className="input-dropdown">
-									<label className="form__label u-hidden" htmlFor="select-contest">Search a contest by ID or name</label>
+									<label className="form__label u-hidden" htmlFor="select-contest">Search contest by ID or name</label>
 									<input className="input-dropdown__input" {...getInputProps({
 										placeholder: "Search contest by ID or name"
 									})} />
 									<button className="input-dropdown__button" {...getToggleButtonProps()}>down</button>
-									<ul className="input-dropdown__list" {...getMenuProps()}>
-										{isOpen
-										? contests
-											.filter((contest) => contest.name.toLowerCase().includes(inputValue.toLowerCase()))
-											.map((item, index) => (
-												<li className="input-dropdown__item"
-													{...getItemProps({
-														key: index,
-														index,
-														item
-													})}
-													>
-													{item.draft_group_id} - {item.name}
-												</li>
-											))
-										: null}
-									</ul>
+									{isOpen
+										? (
+											<ul className="input-dropdown__list" {...getMenuProps()}>
+												{contests
+												.filter((contest) => contest.name.toLowerCase().includes(inputValue.toLowerCase()))
+												.map((item, index) => (
+													<li className="input-dropdown__item"
+														{...getItemProps({
+															key: index,
+															index,
+															item
+														})}
+														>
+														{item.draft_group_id} - {item.name}
+													</li>
+												))}
+										</ul>)
+									: null}
 								</div>
 							)}
 						</Downshift>
