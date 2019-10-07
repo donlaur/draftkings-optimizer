@@ -107,9 +107,9 @@ export default function IndexPage() {
 							<p role="alert">{errorMessage}</p>
 						) : ''}
 					</div>
-					<div className="col col-4">
+					{/* <div className="col col-4">
 						<button className="button">Optimize</button>
-					</div>
+					</div> */}
 				</div>
 			</form>
 			{!isError ? (
