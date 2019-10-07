@@ -6,6 +6,7 @@ interface ITableProps {
 }
 
 export function Table( { data }: ITableProps) {
+    console.log(data);
     return (
         data.length ? (
             <table className="table table--align-left">
@@ -23,23 +24,30 @@ export function Table( { data }: ITableProps) {
                         ) : <></>}
                     </tr>
 
-                    {data.map((lineup, ) => (
-                        lineup.players.map((player, i) => (
-                            <tr key={i}>
-                                <td>{player.id}</td>
-                                <td>{player.positions}</td>
-                                <td>{player.firstName}</td>
-                                <td>{player.lastName}</td>
-                                <td>{player.team}</td>
-                                <td>{player.salary}</td>
-                                <td>{player.fppg}</td>
-                                {player.gameInfo ? (
-                                    <td>{player.gameInfo}</td>
-                                ) : <></>}
-                            </tr>
-                        ))
-                    ))}
+                    {data.map((lineup) => (
+                        <>
+                            {lineup.players.map((player, i) => (
+                                <tr key={i}>
+                                    <td>{player.id}</td>
+                                    <td>{player.positions}</td>
+                                    <td>{player.firstName}</td>
+                                    <td>{player.lastName}</td>
+                                    <td>{player.team}</td>
+                                    <td>{player.salary}</td>
+                                    <td>{player.fppg}</td>
+                                    {player.gameInfo ? (
+                                        <td>{player.gameInfo}</td>
+                                    ) : <></>}
+                                </tr>
+                            ))}
 
+                            <tr>
+                                <td colSpan={5}>Total</td>
+                                <td>{lineup.totalSalary}</td>
+                                <td>{lineup.totalFppg}</td>
+                            </tr>
+                        </>
+                    ))}
                 </tbody>
             </table>
         ) : <></>
