@@ -62,7 +62,7 @@ export default function IndexPage() {
 		<Main>
 			<form className="form">
 				<div className="form__row row">
-					<div className="col col-8">
+					<div className="col">
 						<Downshift
 							onChange={selection => onContestChange(selection)}	
 							itemToString={item => (item ? item.value : '')}>

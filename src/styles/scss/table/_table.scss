@@ -1,0 +1,13 @@
+@import '../reference/index';
+
+$block: 'table';
+
+.#{$block} {
+    width: 100%;
+
+    &--align {
+        &-left {
+            text-align: left;
+        }
+    }
+}

@@ -8,8 +8,8 @@ interface ITableProps {
 export function Table( { data }: ITableProps) {
     return (
         data.length ? (
-            <table className="table table-striped table-hover">
-                <tbody className="container grid-lg">
+            <table className="table table--align-left">
+                <tbody>
                     <tr>
                         <th>ID</th>
                         <th>Positions</th>
