@@ -23,8 +23,7 @@ interface IPlayer {
 
 export interface IContest {
 	draft_group_id: number,
-	name: string,
-	payout: number
+	name: string
 }
 
 export interface IGroup {

@@ -15,6 +15,7 @@
     "gatsby-plugin-sharp": "^2.2.20",
     "gatsby-source-filesystem": "^2.1.21",
     "gatsby-transformer-sharp": "^2.2.13",
+    "lodash.uniqby": "^4.7.0",
     "normalize.css": "^8.0.1",
     "postcss-inline-svg": "^4.1.0",
     "prop-types": "^15.7.2",

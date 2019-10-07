@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Downshift from 'downshift';
+import uniqBy from 'lodash.uniqby';
 
 import { get } from '../scripts/utilities/fetch';
 import { IContest, IGroup, ILineup, IResponse } from '../components/interfaces/IApp';
@@ -16,19 +17,23 @@ const API = "http://127.0.0.1:5000";
 
 export default function IndexPage() {
 	const [lineups, setLineups] = useState<ILineup[]>([]);
-	const [contests, setContests] = useState<IContestResponse>();
+	const [contests, setContests] = useState<IContest[]>();
 	const [isError, setIsError] = useState();
 	const [errorMessage, setErrorMessage] = useState();
 
 	useEffect(() => {
-		console.log(lineups);
-
 		(async () => {
 			try {
 				const response = await get(API);
-				const data = await response.json();
+				const data = await response.json() as IContestResponse;
 
-				setContests(data);
+				const filteredData = data.contests
+					.map((contest) => ({ 
+						draft_group_id: contest.draft_group_id,
+						name: contest.name
+					}))
+
+				setContests(uniqBy(filteredData, (contest => contest.name)));
 			} catch (e) {
 				console.error(`A problem occured when trying to retrieve API: ${e}`);
 			}
@@ -72,19 +77,19 @@ export default function IndexPage() {
 								selectedItem,
 							}) => (
 								<div className="input-dropdown">
-									<label className="form__label u-hidden" htmlFor="select-contest">Search a contest</label>
+									<label className="form__label u-hidden" htmlFor="select-contest">Search a contest by ID or name</label>
 									<input className="input-dropdown__input" {...getInputProps({
 										placeholder: "Search contest by ID or name"
 									})} />
 									<button className="input-dropdown__button" {...getToggleButtonProps()}>down</button>
 									<ul className="input-dropdown__list" {...getMenuProps()}>
 										{isOpen
-										? contests.contests
-											.filter((contest) => contest.name.includes(inputValue))
+										? contests
+											.filter((contest) => contest.name.toLowerCase().includes(inputValue.toLowerCase()))
 											.map((item, index) => (
 												<li className="input-dropdown__item"
 													{...getItemProps({
-														key: `${item.name}.${index}`,
+														key: index,
 														index,
 														item
 													})}
@@ -97,14 +102,6 @@ export default function IndexPage() {
 								</div>
 							)}
 						</Downshift>
-						{/* <div className="select">
-							<select className="select__input" defaultValue='' onChange={onContestChange} id="select-contest">
-								<option disabled value="">Select a contest</option>
-								{contests ? contests.contests.map((contest, i) => (
-									<option value={contest.draft_group_id} key={i}>{contest.draft_group_id} - {contest.name}</option>
-								)): ''}
-							</select>
-						</div> */}
 						{isError && errorMessage ? (
 							<p role="alert">{errorMessage}</p>
 						) : ''}
