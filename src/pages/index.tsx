@@ -13,7 +13,7 @@ interface IContestResponse {
 	groups: IGroup[]
 }
 
-const API = "http://127.0.0.1:5000";
+const API = "https://evening-brushlands-00691.herokuapp.com";
 
 export default function IndexPage() {
 	const [lineups, setLineups] = useState<ILineup[]>([]);
