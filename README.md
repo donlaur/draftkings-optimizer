@@ -45,9 +45,9 @@ Uses [pydfs-lineup-optimizer Python library](https://github.com/DimaKudosh/pydfs
         - [x] Add error states
         - [ ] Add loading state
       - [x] Add data table
-      - [ ] Add total salary and fppg
+      - [x] Add total salary and fppg
   - [ ] Add statistics page
   - [x] Implement Downshift for better searching
-- [ ] Deployment
-  - [ ] Deploy backend (Heroku?)
-  - [ ] Deploy frontend (Netlify?)
+- [x] Deployment
+  - [x] Deploy backend (Heroku?)
+  - [x] Deploy frontend (Netlify?)
