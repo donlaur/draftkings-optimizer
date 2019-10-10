@@ -20,6 +20,7 @@ export default function IndexPage() {
 	const [contests, setContests] = useState<IContest[]>();
 	const [isError, setIsError] = useState();
 	const [errorMessage, setErrorMessage] = useState();
+	const [value, setValue] = useState('');
 
 	useEffect(() => {
 		(async () => {
@@ -34,6 +35,8 @@ export default function IndexPage() {
 					}))
 
 				setContests(uniqBy(filteredData, (contest => contest.name)));
+
+				console.log('finished loading...');
 			} catch (e) {
 				console.error(`A problem occured when trying to retrieve API: ${e}`);
 			}
@@ -41,7 +44,9 @@ export default function IndexPage() {
 	}, [lineups])
 
 	// Request from API once contest is chosen
-	const onContestChange = async (draftSelection, OPTIMIZE = 'optimize') => {
+	const onContestChange = async (draftSelection: IContest, OPTIMIZE = 'optimize') => {
+		setValue(draftSelection.name);
+
 		try {
             const response = await get(`${API}/${OPTIMIZE}?id=${draftSelection.draft_group_id}`);
 			const data = await response.json() as IResponse;
@@ -64,8 +69,9 @@ export default function IndexPage() {
 				<div className="form__row row">
 					<div className="col">
 						<Downshift
+							selectedItem={value}
 							onChange={selection => onContestChange(selection)}	
-							itemToString={item => (item ? item.value : '')}>
+							itemToString={item => (item ? item.name : '')}>
 							{({
 								getToggleButtonProps,
 								getMenuProps,
@@ -74,7 +80,7 @@ export default function IndexPage() {
 								inputValue,
 								isOpen,
 								highlightedIndex,
-								selectedItem,
+								selectedItem
 							}) => (
 								<div className="input-dropdown">
 									<label className="form__label u-hidden" htmlFor="select-contest">Search contest by ID or name</label>
@@ -82,17 +88,17 @@ export default function IndexPage() {
 										placeholder: "Search contest by ID or name"
 									})} />
 									<button className="input-dropdown__button" {...getToggleButtonProps()}>down</button>
-									{isOpen
+									{isOpen              
 										? (
 											<ul className="input-dropdown__list" {...getMenuProps()}>
 												{contests
-												.filter((contest) => contest.name.toLowerCase().includes(inputValue.toLowerCase()))
+												.filter((contest) => !inputValue || contest.name.toLowerCase().includes(inputValue.toLowerCase()))
 												.map((item, index) => (
 													<li className="input-dropdown__item"
 														{...getItemProps({
-															key: index,
+															key: item.name,
 															index,
-															item
+															item,
 														})}
 														>
 														{item.draft_group_id} - {item.name}

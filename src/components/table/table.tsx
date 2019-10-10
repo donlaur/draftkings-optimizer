@@ -6,7 +6,6 @@ interface ITableProps {
 }
 
 export function Table( { data }: ITableProps) {
-    console.log(data);
     return (
         data.length ? (
             <table className="table table--align-left">
