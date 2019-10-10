@@ -1,5 +1,5 @@
 import React from 'react';
-import { Aside } from '../components/global/aside-nav';
+import { Nav } from '../components/global/nav';
 
 import 'normalize.css';
 import 'bootstrap/scss/bootstrap-grid.scss';
@@ -10,7 +10,7 @@ export function Main({ children }) {
     return (
         <>
             <SEO />
-            <Aside/>
+            <Nav/>
 
             <main>
                 {children}
