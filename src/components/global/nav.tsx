@@ -9,6 +9,10 @@ export function Nav() {
 		setActiveState(!isActive);
 	};
 
+	if (typeof window === 'undefined') {
+		global.window = {}
+	}
+
 	window.addEventListener('click', (e) => {
 		if (e.target instanceof HTMLElement) {
 			if (e.target !== nav.current) {
