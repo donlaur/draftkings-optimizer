@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'gatsby';
 
 export function Nav() {
@@ -8,17 +8,15 @@ export function Nav() {
 	const onClick = () => {
 		setActiveState(!isActive);
 	};
-
-	if (typeof window === 'undefined') {
-		global.window = {}
-	}
-
-	window.addEventListener('click', (e) => {
-		if (e.target instanceof HTMLElement) {
-			if (e.target !== nav.current) {
-				setActiveState(false);
+	
+	useEffect(() => {
+		window.addEventListener('click', (e) => {
+			if (e.target instanceof HTMLElement) {
+				if (e.target !== nav.current) {
+					setActiveState(false);
+				}
 			}
-		}
+		})
 	})
 
 	return (
