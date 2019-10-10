@@ -19,8 +19,8 @@ export default function IndexPage() {
 	const [lineups, setLineups] = useState<ILineup[]>([]);
 	const [contests, setContests] = useState<IContest[]>();
 	const [isError, setIsError] = useState();
-	const [errorMessage, setErrorMessage] = useState();
-	const [value, setValue] = useState();
+	const [errorMessage, setErrorMessage] = useState('');
+	const [inputValue, setInputValue] = useState('');
 
 	useEffect(() => {
 		(async () => {
@@ -45,7 +45,7 @@ export default function IndexPage() {
 
 	// Request from API once contest is chosen
 	const onContestChange = async (draftSelection: IContest, OPTIMIZE = 'optimize') => {
-		setValue(draftSelection.name);
+		setInputValue(draftSelection.name);
 
 		try {
             const response = await get(`${API}/${OPTIMIZE}?id=${draftSelection.draft_group_id}`);
@@ -69,7 +69,6 @@ export default function IndexPage() {
 				<div className="form__row row">
 					<div className="col">
 						<Downshift
-							selectedItem={value}
 							onChange={selection => onContestChange(selection)}	
 							itemToString={item => (item ? item.name : '')}>
 							{({
@@ -80,7 +79,6 @@ export default function IndexPage() {
 								inputValue,
 								isOpen,
 								highlightedIndex,
-								selectedItem
 							}) => (
 								<div className="input-dropdown">
 									<label className="form__label u-hidden" htmlFor="select-contest">Search contest by ID or name</label>
