@@ -20,7 +20,7 @@ export default function IndexPage() {
 	const [contests, setContests] = useState<IContest[]>();
 	const [isError, setIsError] = useState();
 	const [errorMessage, setErrorMessage] = useState('');
-	const [inputValue, setInputValue] = useState('');
+	const [isLoadingContests, setLoadingContests] = useState(true);
 
 	useEffect(() => {
 		(async () => {
@@ -35,18 +35,16 @@ export default function IndexPage() {
 					}))
 
 				setContests(uniqBy(filteredData, (contest => contest.name)));
-
-				console.log('finished loading...');
 			} catch (e) {
 				console.error(`A problem occured when trying to retrieve API: ${e}`);
 			}
+
+			setLoadingContests(false);
 		})()
 	}, [lineups])
 
 	// Request from API once contest is chosen
 	const onContestChange = async (draftSelection: IContest, OPTIMIZE = 'optimize') => {
-		setInputValue(draftSelection.name);
-
 		try {
             const response = await get(`${API}/${OPTIMIZE}?id=${draftSelection.draft_group_id}`);
 			const data = await response.json() as IResponse;
@@ -80,12 +78,15 @@ export default function IndexPage() {
 								isOpen,
 								highlightedIndex,
 							}) => (
-								<div className="input-dropdown">
+								<div className={`input-dropdown ${isLoadingContests ? 'input-dropdown--disabled' : ''}`}>
 									<label className="form__label u-hidden" htmlFor="select-contest">Search contest by ID or name</label>
 									<input className="input-dropdown__input" {...getInputProps({
-										placeholder: "Search contest by ID or name"
+										placeholder: isLoadingContests ? "Grabbing contests..." : "Search contest by ID or name",
+										disabled: isLoadingContests
 									})} />
-									<button className="input-dropdown__button" {...getToggleButtonProps()}>down</button>
+									<button className="input-dropdown__button" {...getToggleButtonProps({
+										disabled: isLoadingContests
+									})}>down</button>
 									{isOpen              
 										? (
 											<ul className="input-dropdown__list" {...getMenuProps()}>

@@ -8,10 +8,19 @@ $block: 'input-dropdown';
     display: flex;
     position: relative;
 
+    &--disabled {
+        border-color: $grey-800;
+    }
+
     &__input {
         @include input;
 
         flex: 1;
+
+        &[disabled] {
+            background-color: $grey-200;
+            color: $grey-800;
+        }
     }
 
     &__button {
@@ -34,6 +43,10 @@ $block: 'input-dropdown';
             position: absolute;
             top: calc(50% - #{$height} / 2);
             width: $width;
+        }
+
+        &[disabled] {
+            background-color: $grey-400;
         }
     }
 
