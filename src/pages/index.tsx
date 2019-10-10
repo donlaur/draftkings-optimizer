@@ -20,7 +20,7 @@ export default function IndexPage() {
 	const [contests, setContests] = useState<IContest[]>();
 	const [isError, setIsError] = useState();
 	const [errorMessage, setErrorMessage] = useState();
-	const [value, setValue] = useState('');
+	const [value, setValue] = useState();
 
 	useEffect(() => {
 		(async () => {
@@ -96,7 +96,7 @@ export default function IndexPage() {
 												.map((item, index) => (
 													<li className="input-dropdown__item"
 														{...getItemProps({
-															key: item.name,
+															key: index,
 															index,
 															item,
 														})}

@@ -11,8 +11,7 @@ body {
 main {
     background-color: $grey-100;
     margin-left: $aside-width;
-    padding-top: $main-margin-top;
-    padding-bottom: $main-margin-top;
+    padding: $main-margin-top 2rem;
     position: relative;
 }
 

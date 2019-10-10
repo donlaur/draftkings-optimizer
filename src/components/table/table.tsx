@@ -25,8 +25,8 @@ export function Table( { data }: ITableProps) {
 
                     {data.map((lineup) => (
                         <>
-                            {lineup.players.map((player, i) => (
-                                <tr key={i}>
+                            {lineup.players.map((player) => (
+                                <tr key={player.id}>
                                     <td>{player.id}</td>
                                     <td>{player.positions}</td>
                                     <td>{player.firstName}</td>

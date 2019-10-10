@@ -11,9 +11,7 @@ export function Main({ children }) {
             <Aside/>
 
             <main>
-                <div className="container">
-                    {children}
-                </div>
+                {children}
             </main>
         </>
     )
