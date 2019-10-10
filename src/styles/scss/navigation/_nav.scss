@@ -3,86 +3,144 @@
 $block: 'nav';
 
 .#{$block} {
-    $horizontal-spacing: 2rem;
+	$horizontal-spacing: 1rem;
+	background-color: $grey-aside-dark;
 
-    background-color: $grey-aside-dark;
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: $aside-width;
+	@include media-min(md) {
+		position: fixed;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: $aside-width;
+	}
+	
+	&--active {
+		.#{$block}__main {
+			background: rgba(#000, 0.75);
+			left: 0;
+			right: 0;
+			z-index: 999;
+		}
+	}
 
-    &__container {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        margin-top: $main-margin-top;
-    }
-    
-    &__main {
-        flex: 1;
-        margin-top: $main-margin-top;
-    }
+	&__container {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
 
-    &__footer {
-        border-top: 1px solid $grey-300;
-        display: flex;
-        padding: 0.75rem $horizontal-spacing;
-    }
+	&__main {
+		background: rgba(#000, 0);
+		bottom: 0;
+		flex: 1;
+		left: -100%;
+		right: 0;
+		position: absolute;
+		top: 0;
+		z-index: 998;
+		transition: all 350ms ease-in-out;
 
-    &__heading {
-        color: $white;
-        font-size: 1.25rem;
-        margin: 0;
-        padding-left: $horizontal-spacing;
-        padding-right: $horizontal-spacing;
-    }
+		@include media-min(md) {
+			left: 0;
+			position: relative;
+		}
+	}
 
-    &__list {
-        list-style: none;
-        margin-bottom: 0;
-        margin-top: 0;
-        padding-left: 0;
-    }
+	&__footer {
+		border-top: 1px solid $grey-300;
+		display: flex;
+		padding: 0.75rem $horizontal-spacing;
+	}
 
-    &__item {
-        margin: 0;
-    }
+	&__heading-wrapper {
+		display: flex;
+		margin-bottom: $main-margin-top;
+		margin-top: $main-margin-top;
+		padding-left: $horizontal-spacing;
+		padding-right: $horizontal-spacing;
+		position: relative;
+		z-index: 999;
+	}
+	
+	&__mobile-button {
+		@include image-replacement;
 
-    &__link {
-        display: block;
-        padding: 1rem $horizontal-spacing;
-        position: relative;
+		background-color: transparent;
+		cursor: pointer;
+		display: inline-block;
+		margin-right: 1rem;
+		padding: 0;
 
-        &:visited {
-            color: $primary-white;
-        }
-        
-        @include hover-focus {
-            background-color: $grey-aside;
-            text-decoration: none;
-        }
+		@include media-min(md) {
+			display: none;
+			margin-right: 0;
+		}
 
-        svg {
-            fill: $primary-white;
-            margin-right: 0.75rem;
-            vertical-align: top;
-        }
+		svg {
+			fill: $white;
+		}
+	}
 
-        &--active {
-            background-color: $grey-aside;
-            
-            &::before {
-                content: '';
-            }
-            
-            &:visited {
-                color: $white;
-            }
+	&__heading {
+		color: $white;
+		display: inline-block;
+		font-size: 1.25rem;
+		margin: 0;
+	}
 
-            svg {
-                fill: $white;
-            }
-        }
-    }
+	&__list {
+		background-color: $grey-aside-dark;
+		height: 100%;
+		list-style: none;
+		margin-bottom: 0;
+		margin-top: 0;
+		padding-left: 0;
+		width: 15rem;
+
+		@include media-min(md) {
+			height: auto;
+			width: auto;
+		}
+	}
+
+	&__item {
+		margin: 0;
+	}
+
+	&__link {
+		display: block;
+		padding: 1rem $horizontal-spacing;
+		position: relative;
+
+		&:visited {
+			color: $primary-white;
+		}
+		
+		@include hover-focus {
+			background-color: $grey-aside;
+			text-decoration: none;
+		}
+
+		svg {
+			fill: $primary-white;
+			margin-right: 0.75rem;
+			vertical-align: top;
+		}
+
+		&--active {
+			background-color: $grey-aside;
+			
+			&::before {
+				content: '';
+			}
+			
+			&:visited {
+				color: $white;
+			}
+
+			svg {
+				fill: $white;
+			}
+		}
+	}
 }

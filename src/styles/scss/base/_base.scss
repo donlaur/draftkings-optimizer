@@ -10,9 +10,14 @@ body {
 
 main {
     background-color: $grey-100;
-    margin-left: $aside-width;
-    padding: $main-margin-top 2rem;
-    position: relative;
+	padding: $main-margin-top 1rem;
+	position: relative;
+
+	@include media-min(md) {
+		margin-left: $aside-width;
+		padding-left: 2rem;
+		padding-right: 2rem;
+	}
 }
 
 a {
