@@ -12,7 +12,7 @@ main {
     background-color: $grey-100;
 	padding: $main-margin-top 1rem;
 	position: relative;
-
+	
 	@include media-min(md) {
 		margin-left: $aside-width;
 		padding-left: 2rem;

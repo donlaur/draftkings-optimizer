@@ -19,7 +19,7 @@ $block: 'nav';
 			background: rgba(#000, 0.75);
 			left: 0;
 			right: 0;
-			z-index: 999;
+			// z-index: 999;
 		}
 	}
 
@@ -34,10 +34,10 @@ $block: 'nav';
 		bottom: 0;
 		flex: 1;
 		left: -100%;
-		right: 0;
+		// right: 0;
 		position: absolute;
 		top: 0;
-		z-index: 998;
+		z-index: 999;
 		transition: all 350ms ease-in-out;
 
 		@include media-min(md) {
@@ -58,8 +58,8 @@ $block: 'nav';
 		margin-top: $main-margin-top;
 		padding-left: $horizontal-spacing;
 		padding-right: $horizontal-spacing;
-		position: relative;
-		z-index: 999;
+		// position: relative;
+		// z-index: 999;
 	}
 	
 	&__mobile-button {
