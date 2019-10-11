@@ -3,11 +3,62 @@
 $block: 'table';
 
 .#{$block} {
-    width: 100%;
+	border-radius: 0.25rem;
+	// max-width: 44rem;
+	margin-left: -1rem;
+	margin-right: -1rem;
+	overflow-x: scroll;
+	
+	@include media-min(md) {
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	&--align {
+		&-left {
+			text-align: left;
+		}
+	}
+	
+	&__row {
+		background-color: $white;
+		border-top: 1px solid $grey-200;
+		box-sizing: border-box;
+		display: flex;
+		width: 100%;
+		padding: 1rem;
 
-    &--align {
-        &-left {
-            text-align: left;
-        }
-    }
+		&--header {
+			font-weight: 600;
+			white-space: nowrap;
+		}
+
+		&--total {
+			font-weight: 600;
+			border-bottom-left-radius: 0.25rem;
+			border-bottom-right-radius: 0.25rem;
+
+			& + .#{$block}__row {
+				border-top-left-radius: 0.25rem;
+				border-top-right-radius: 0.25rem;
+				margin-top: 1rem;
+			}
+		}
+
+		&--O {
+			background-color: $red-light;
+			color: $red;
+		}
+	}
+
+	&__column {
+		flex: 1;
+		padding-left: 1rem;
+		padding-right: 1rem;
+
+		&--first-name,
+		&--last-name {
+			flex: 1;
+		}
+	}
 }

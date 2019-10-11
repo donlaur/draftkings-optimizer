@@ -8,63 +8,64 @@ interface ITableProps {
 
 export function Table( { data }: ITableProps) {
 	return (
-		<table className="table table--align-left">
-			<tbody>
-				<tr>
-					{/* <th>ID</th> */}
-					<th>Positions</th>
-					<th>First name</th>
-					<th>Last name</th>
-					<th>Team</th>
-					<th>Salary</th>
-					<th>FPPG</th>
-					{/* {data.some((lineup) => lineup.players.some((player) => player.gameInfo)) ? (
-						<th>Game info</th>
-					) : <></>} */}
-				</tr>
+		<div className="table table--align-left" role="table">
+			<div className="table__row table__row--header">
+				{/* <div>ID</div> */}
+				<div className="table__column table__column--first-name">First name</div>
+				<div className="table__column table__column--last-name">Last name</div>
+				<div className="table__column">Positions</div>
+				<div className="table__column">Team</div>
+				<div className="table__column text-align-right">Salary</div>
+				<div className="table__column text-align-right">FPPG</div>
+				{/* {data.some((lineup) => lineup.players.some((player) => player.gameInfo)) ? (
+					<div>Game info</div>
+				) : <></>} */}
+			</div>
 
-				{data.length !== undefined ? (
-					data.map((player: IDraftKingsResponse, i) => (
-						<tr key={i}>
-							{/* <td>{player.id}</td> */}
-							<td>{player.position}</td>
-							<td>{player.firstName}</td>
-							<td>{player.lastName}</td>
-							<td>{player.teamAbbreviation}</td>
-							<td>{player.salary}</td>
-							<td>{player.draftStatAttributes[0].value}</td>
-							{/* {player.gameInfo ? (
-								<td>{player.gameInfo}</td>
-							) : <></>} */}
-						</tr>
-					))
-				) : (
-					data.lineups.map((lineup: ILineup, i) => (
-						<>
-							{lineup.players.map((player) => (
-								<tr key={player.id}>
-									{/* <td>{player.id}</td> */}
-									<td>{player.positions}</td>
-									<td>{player.firstName}</td>
-									<td>{player.lastName}</td>
-									<td>{player.team}</td>
-									<td>{player.salary}</td>
-									<td>{player.fppg}</td>
-									{/* {player.gameInfo ? (
-										<td>{player.gameInfo}</td>
-									) : <></>} */}
-								</tr>
-							))}
-	
-							<tr>
-								<td colSpan={4}>Total</td>
-								<td>{lineup.totalSalary}</td>
-								<td>{lineup.totalFppg}</td>
-							</tr>
-						</>
-					))
-				)}
-				</tbody>
-			</table>
+			{data.length !== undefined ? (
+				data.map((player: IDraftKingsResponse, i) => (
+					<div className={`table__row ${player.status !== 'None' ? `table__row--${player.status}` : ''}`} key={i}>
+						{/* <div>{player.id}</div> */}
+						<div className="table__column table__column--first-name">{player.firstName}</div>
+						<div className="table__column table__column--last-name">{player.lastName}</div>
+						<div className="table__column">{player.teamAbbreviation}</div>
+						<div className="table__column">{player.position}</div>
+						<div className="table__column text-align-right">{player.salary}</div>
+						<div className="table__column text-align-right">{player.draftStatAttributes[0].value}</div>
+						{/* {player.gameInfo ? (
+							<div>{player.gameInfo}</div>
+						) : <></>} */}
+					</div>
+				))
+			) : (
+				data.lineups.map((lineup: ILineup, i) => (
+					<>
+						{lineup.players.map((player) => (
+							<div className="table__row" key={player.id}>
+								{/* <div>{player.id}</div> */}
+								<div className="table__column table__column--first-name">{player.firstName}</div>
+								<div className="table__column table__column--last-name">{player.lastName}</div>
+								<div className="table__column">{player.team}</div>
+								<div className="table__column">{player.positions}</div>
+								<div className="table__column text-align-right">{player.salary}</div>
+								<div className="table__column text-align-right">{player.fppg}</div>
+								{/* {player.gameInfo ? (
+									<div>{player.gameInfo}</div>
+								) : <></>} */}
+							</div>
+						))}
+
+						<div className="table__row table__row--total">
+							<div className="table__column">Total</div>
+							<div className="table__column"></div>
+							<div className="table__column"></div>
+							<div className="table__column"></div>
+							<div className="table__column text-align-right">{lineup.totalSalary}</div>
+							<div className="table__column text-align-right">{lineup.totalFppg}</div>
+						</div>
+					</>
+				))
+			)}
+		</div>
 	)
 }
