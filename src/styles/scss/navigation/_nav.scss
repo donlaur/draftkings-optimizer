@@ -3,7 +3,7 @@
 $block: 'nav';
 
 .#{$block} {
-	$horizontal-spacing: 1rem;
+	$horizontal-spacing: 2rem;
 	background-color: $grey-aside-dark;
 
 	@include media-min(md) {
@@ -54,12 +54,12 @@ $block: 'nav';
 
 	&__heading-wrapper {
 		display: flex;
-		margin-bottom: $main-margin-top;
-		margin-top: $main-margin-top;
-		padding-left: $horizontal-spacing;
-		padding-right: $horizontal-spacing;
-		// position: relative;
-		// z-index: 999;
+		margin: $main-margin-top 1rem;
+
+		@include media-min(md) {
+			margin-left: $horizontal-spacing;
+			margin-right: $horizontal-spacing;
+		}
 	}
 	
 	&__mobile-button {
