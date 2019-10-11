@@ -13,7 +13,9 @@ export function Main({ children }) {
             <Nav/>
 
             <main>
-                {children}
+				<div className="container">
+                	{children}
+				</div>
             </main>
         </>
     )
