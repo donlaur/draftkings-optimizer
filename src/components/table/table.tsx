@@ -1,8 +1,9 @@
 import React from 'react';
-import { ILineup } from '../interfaces/IApp';
+import { IResponse, ILineup } from '../interfaces/IApp';
+import { IDraftKingsResponse } from '../interfaces/IDraftKingsResponse';
 
 interface ITableProps {
-	data: ILineup[]
+	data: IResponse | IDraftKingsResponse[]
 }
 
 export function Table( { data }: ITableProps) {
@@ -17,35 +18,52 @@ export function Table( { data }: ITableProps) {
 					<th>Team</th>
 					<th>Salary</th>
 					<th>FPPG</th>
-					{data.some((lineup) => lineup.players.some((player) => player.gameInfo)) ? (
+					{/* {data.some((lineup) => lineup.players.some((player) => player.gameInfo)) ? (
 						<th>Game info</th>
-					) : <></>}
+					) : <></>} */}
 				</tr>
 
-				{data.map((lineup, i) => (
-					<>
-						{lineup.players.map((player) => (
-							<tr key={player.id}>
-								{/* <td>{player.id}</td> */}
-								<td>{player.positions}</td>
-								<td>{player.firstName}</td>
-								<td>{player.lastName}</td>
-								<td>{player.team}</td>
-								<td>{player.salary}</td>
-								<td>{player.fppg}</td>
-								{player.gameInfo ? (
-									<td>{player.gameInfo}</td>
-								) : <></>}
-							</tr>
-						))}
-
-						<tr>
-							<td colSpan={4}>Total</td>
-							<td>{lineup.totalSalary}</td>
-							<td>{lineup.totalFppg}</td>
+				{data.length !== undefined ? (
+					data.map((player: IDraftKingsResponse, i) => (
+						<tr key={i}>
+							{/* <td>{player.id}</td> */}
+							<td>{player.position}</td>
+							<td>{player.firstName}</td>
+							<td>{player.lastName}</td>
+							<td>{player.teamAbbreviation}</td>
+							<td>{player.salary}</td>
+							<td>{player.draftStatAttributes[0].value}</td>
+							{/* {player.gameInfo ? (
+								<td>{player.gameInfo}</td>
+							) : <></>} */}
 						</tr>
-					</>
-				))}
+					))
+				) : (
+					data.lineups.map((lineup: ILineup, i) => (
+						<>
+							{lineup.players.map((player) => (
+								<tr key={player.id}>
+									{/* <td>{player.id}</td> */}
+									<td>{player.positions}</td>
+									<td>{player.firstName}</td>
+									<td>{player.lastName}</td>
+									<td>{player.team}</td>
+									<td>{player.salary}</td>
+									<td>{player.fppg}</td>
+									{/* {player.gameInfo ? (
+										<td>{player.gameInfo}</td>
+									) : <></>} */}
+								</tr>
+							))}
+	
+							<tr>
+								<td colSpan={4}>Total</td>
+								<td>{lineup.totalSalary}</td>
+								<td>{lineup.totalFppg}</td>
+							</tr>
+						</>
+					))
+				)}
 				</tbody>
 			</table>
 	)

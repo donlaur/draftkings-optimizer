@@ -3,55 +3,91 @@ import Downshift from 'downshift';
 import uniqBy from 'lodash.uniqby';
 
 import { get } from '../scripts/utilities/fetch';
-import { IContest, IGroup, ILineup, IResponse } from '../components/interfaces/IApp';
+import { IContest, IGroup, IResponse } from '../components/interfaces/IApp';
 
 import { Main } from '../layouts/main';
 import { Table } from '../components/table/table';
+import { IDraftKingsResponse } from '../components/interfaces/IDraftKingsResponse';
 
 interface IContestResponse {
 	contests: IContest[],
 	groups: IGroup[]
 }
 
-// const API = "https://evening-brushlands-00691.herokuapp.com";
-const API = "http://127.0.0.1:5000";
+const API = "https://evening-brushlands-00691.herokuapp.com";
+// const API = "http://127.0.0.1:5000";
 
 export default function IndexPage() {
-	const [lineups, setLineups] = useState<ILineup[]>([]);
+	const [draftGroupId, setDraftGroupId] = useState();
+	const [data, setData] = useState<IResponse | IDraftKingsResponse[]>([]);
 	const [contests, setContests] = useState<IContest[]>();
 	const [isError, setIsError] = useState();
 	const [errorMessage, setErrorMessage] = useState('');
 	const [isLoadingContests, setLoadingContests] = useState(true);
 
+
+	// Update only when isLoadingContests changes
 	useEffect(() => {
 		(async () => {
 			try {
 				const response = await get(API);
 				const data = await response.json() as IContestResponse;
 
-				const filteredData = data.contests
-					.map((contest) => ({ 
-						draft_group_id: contest.draft_group_id,
-						name: contest.name
-					}))
-
-				setContests(uniqBy(filteredData, (contest => contest.name)));
+				setContests(uniqBy(data.contests, 'name'));
 			} catch (e) {
 				console.error(`A problem occured when trying to retrieve API: ${e}`);
 			}
 
 			setLoadingContests(false);
 		})()
-	}, [lineups])
+	}, [isLoadingContests])
+
+
+	// Up
+	useEffect(() => {
+		const QUERY = 'get-players';
+
+		if (!draftGroupId) {
+			return;
+		}
+
+		(async () => {
+			try {
+				const response = await get(`${API}/${QUERY}?id=${draftGroupId}`);
+				const data = await response.json();
+	
+				setData(uniqBy(data, 'playerId'));
+			} catch (e) {
+				console.error(`A problem occured when trying to retrieve API: ${e}`);
+			}
+		})()
+	}, [draftGroupId])
+
+
+	//
+	const onContestChange = async (draftSelection: IContest, QUERY = 'get-players') => {
+		if (!draftSelection) {
+			return;	
+		}
+
+		setDraftGroupId(draftSelection.draft_group_id);
+	}
+
 
 	// Request from API once contest is chosen
-	const onContestChange = async (draftSelection: IContest, OPTIMIZE = 'optimize') => {
+	const optimizeLineups = async (e: React.MouseEvent<HTMLButtonElement>, OPTIMIZE = "optimize") => {
+		e.preventDefault();
+
+		if (!draftGroupId) {
+			return;
+		}
+
 		try {
-            const response = await get(`${API}/${OPTIMIZE}?id=${draftSelection.draft_group_id}`);
+            const response = await get(`${API}/${OPTIMIZE}?id=${draftGroupId}`);
 			const data = await response.json() as IResponse;
 
 			if (data.success) {
-				setLineups(data.lineups);
+				setData(data);
 				setIsError(!data.success);
 			} else {
 				setIsError(!data.success);
@@ -61,6 +97,7 @@ export default function IndexPage() {
 			console.error(`A problem occured when trying to retrieve API: ${e}`);
 		}
 	}
+
 
 	return (
 		<Main>
@@ -128,13 +165,13 @@ export default function IndexPage() {
 							<p role="alert">{errorMessage}</p>
 						) : ''}
 					</div>
-					{/* <div className="col col-4">
-						<button className="button">Optimize</button>
-					</div> */}
+					<div className="col col-4">
+						<button className="button" onClick={optimizeLineups}>Optimize</button>
+					</div>
 				</div>
 			</form>
 			{!isError ? (
-				<Table data={lineups} />
+				<Table data={data} />
 			) : ''}
 		</Main>
 	)
