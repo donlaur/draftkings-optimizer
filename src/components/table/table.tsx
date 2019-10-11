@@ -13,10 +13,11 @@ export function Table( { data }: ITableProps) {
 				{/* <div>ID</div> */}
 				<div className="table__column table__column--first-name">First name</div>
 				<div className="table__column table__column--last-name">Last name</div>
-				<div className="table__column">Positions</div>
 				<div className="table__column">Team</div>
+				<div className="table__column">Positions</div>
 				<div className="table__column text-align-right">Salary</div>
 				<div className="table__column text-align-right">FPPG</div>
+				{/* <div className="table__column text-align-right"></div> */}
 				{/* {data.some((lineup) => lineup.players.some((player) => player.gameInfo)) ? (
 					<div>Game info</div>
 				) : <></>} */}
@@ -32,6 +33,7 @@ export function Table( { data }: ITableProps) {
 						<div className="table__column">{player.position}</div>
 						<div className="table__column text-align-right">{player.salary}</div>
 						<div className="table__column text-align-right">{player.draftStatAttributes[0].value}</div>
+						{/* <div className="table__column text-align-right">Stats</div> */}
 						{/* {player.gameInfo ? (
 							<div>{player.gameInfo}</div>
 						) : <></>} */}
@@ -49,6 +51,7 @@ export function Table( { data }: ITableProps) {
 								<div className="table__column">{player.positions}</div>
 								<div className="table__column text-align-right">{player.salary}</div>
 								<div className="table__column text-align-right">{player.fppg}</div>
+								{/* <div className="table__column text-align-right">Stats</div> */}
 								{/* {player.gameInfo ? (
 									<div>{player.gameInfo}</div>
 								) : <></>} */}
@@ -62,6 +65,7 @@ export function Table( { data }: ITableProps) {
 							<div className="table__column"></div>
 							<div className="table__column text-align-right">{lineup.totalSalary}</div>
 							<div className="table__column text-align-right">{lineup.totalFppg}</div>
+							{/* <div className="table__column text-align-right"></div> */}
 						</div>
 					</>
 				))
