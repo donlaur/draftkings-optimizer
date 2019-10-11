@@ -11,7 +11,7 @@ $block: 'nav';
 		left: 0;
 		top: 0;
 		bottom: 0;
-		width: $aside-width;
+		// width: $aside-width;
 	}
 	
 	&--active {
@@ -54,11 +54,10 @@ $block: 'nav';
 
 	&__heading-wrapper {
 		display: flex;
-		margin: $main-margin-top 1rem;
+		margin: 1rem;
 
 		@include media-min(md) {
-			margin-left: $horizontal-spacing;
-			margin-right: $horizontal-spacing;
+			margin: $main-margin-top $horizontal-spacing;
 		}
 	}
 	
