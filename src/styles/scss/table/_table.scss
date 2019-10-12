@@ -4,10 +4,14 @@ $block: 'table';
 
 .#{$block} {
 	$border-radius: 0.25rem;
+
+	table-layout: fixed;
+	border-collapse: collapse;
 	
 	@include media-min(md) {
 		margin-left: auto;
 		margin-right: auto;
+		// width: 80%;
 	}
 
 	&::-webkit-scrollbar {
@@ -18,9 +22,6 @@ $block: 'table';
 		background-color: $white;
 		border-top: 1px solid $grey-200;
 		box-sizing: border-box;
-		display: flex;
-		// width: 100%;
-		padding: 1rem;
 
 		&:first-child {
 			border-top-left-radius: $border-radius;
@@ -35,6 +36,7 @@ $block: 'table';
 		&--header {
 			font-weight: 600;
 			white-space: nowrap;
+			text-align: left;
 		}
 
 		&--total {
@@ -55,14 +57,41 @@ $block: 'table';
 		}
 	}
 
-	&__column {
-		flex: 1;
-		padding-left: 1rem;
-		padding-right: 1rem;
+	&__cell {
+		padding: 1rem;
+		// width: 10%;
 
-		&--first-name,
-		&--last-name {
-			flex: 1;
+		&:first-child {
+			padding-left: 1.5rem;
 		}
+
+		&:last-child {
+			padding-right: 1.5rem;
+		}
+
+		&--lock {
+			width: 5%;
+			// text-align: center;
+
+			input {
+				margin-left: 0.25rem;
+			}
+		}
+
+		// &--first-name {
+		// 	width: 10%;
+		// }
+
+		// &--last-name {
+		// 	width: 20%;
+		// }
+
+		// &--team {
+		// 	width: 20%;
+		// }
+
+		// &--positions {
+		// 	width: 20%;
+		// }
 	}
 }
