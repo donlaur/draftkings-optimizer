@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useReducer } from 'react';
 import Downshift from 'downshift';
 import uniqBy from 'lodash.uniqby';
 
@@ -24,6 +24,7 @@ export default function IndexPage() {
 	const [isError, setIsError] = useState();
 	const [errorMessage, setErrorMessage] = useState('');
 	const [isLoadingContests, setLoadingContests] = useState(true);
+	const [lockedPlayers, setLockedPlayers] = useState<number[]>([])
 
 
 	// Update only when isLoadingContests changes
@@ -64,8 +65,13 @@ export default function IndexPage() {
 	}, [draftGroupId])
 
 
+	useEffect(() => {
+		console.log(lockedPlayers);
+	}, [lockedPlayers])
+
+
 	//
-	const onContestChange = async (draftSelection: IContest, QUERY = 'get-players') => {
+	const onContestChange = async (draftSelection: IContest) => {
 		if (!draftSelection) {
 			return;	
 		}
@@ -78,12 +84,16 @@ export default function IndexPage() {
 	const optimizeLineups = async (e: React.MouseEvent<HTMLButtonElement>, OPTIMIZE = "optimize") => {
 		e.preventDefault();
 
+		const locked = lockedPlayers.length > 0 ? `&locked=${lockedPlayers.join()}` : '';
+
+		const URL = `${API}/${OPTIMIZE}?id=${draftGroupId}${locked}`;
+
 		if (!draftGroupId) {
 			return;
 		}
 
 		try {
-            const response = await get(`${API}/${OPTIMIZE}?id=${draftGroupId}`);
+            const response = await get(URL);
 			const data = await response.json() as IResponse;
 
 			if (data.success) {
@@ -171,7 +181,7 @@ export default function IndexPage() {
 				</div>
 			</form>
 			{!isError ? (
-				<Table data={data} />
+				<Table data={data} setLockedPlayers={setLockedPlayers} lockedPlayers={lockedPlayers}/>
 			) : ''}
 		</Main>
 	)

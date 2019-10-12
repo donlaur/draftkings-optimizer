@@ -3,10 +3,30 @@ import { IResponse, ILineup } from '../interfaces/IApp';
 import { IDraftKingsResponse } from '../interfaces/IDraftKingsResponse';
 
 interface ITableProps {
-	data: IResponse | IDraftKingsResponse[]
+	data: IResponse | IDraftKingsResponse[],
+	lockedPlayers: any[],
+	setLockedPlayers: React.Dispatch<React.SetStateAction<number[]>>
 }
 
-export function Table( { data }: ITableProps) {
+export function Table( { data, lockedPlayers, setLockedPlayers }: ITableProps) {
+	const onChange = (e: React.MouseEvent) => {
+		if (e.currentTarget instanceof HTMLInputElement) {
+			const value = e.currentTarget.value;
+
+			if (lockedPlayers.includes(value)) {
+				const id = lockedPlayers.findIndex(player => player === value);
+
+				lockedPlayers.splice(id)
+
+				setLockedPlayers([...lockedPlayers]);
+			} else {
+				setLockedPlayers([...lockedPlayers, value])
+
+			}
+		}
+
+	}
+
 	return (
 		<div className="table-wrapper">
 			<table className="table" role="table">
@@ -29,9 +49,8 @@ export function Table( { data }: ITableProps) {
 				{data.length !== undefined ? (
 					data.map((player: IDraftKingsResponse, i) => (
 						<tr className={`table__row ${player.status !== 'None' ? `table__row--${player.status}` : ''}`} key={i}>
-							{/* <div>{player.id}</div> */}
 							<td className="table__cell table__cell--lock">
-								<input className="checkbox" type="checkbox" name="" id="" disabled={player.status === 'O'}/>
+								<input className="checkbox" type="checkbox" onChange={onChange} disabled={player.status === 'O'} value={player.playerId}/>
 							</td>
 							<td className="table__cell table__cell--first-name">{player.firstName}</td>
 							<td className="table__cell table__cell--last-name">{player.lastName}</td>
@@ -52,7 +71,7 @@ export function Table( { data }: ITableProps) {
 								<tr className="table__row" key={player.id}>
 									{/* <div>{player.id}</div> */}
 									<td className="table__cell table__cell--lock">
-										<input className="checkbox" type="checkbox" name="" id=""/>
+										<input className="checkbox" type="checkbox" onChange={onChange} value={player.id}/>
 									</td>
 									<td className="table__cell table__cell--first-name">{player.firstName}</td>
 									<td className="table__cell table__cell--last-name">{player.lastName}</td>

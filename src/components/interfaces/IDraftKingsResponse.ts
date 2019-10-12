@@ -2,6 +2,7 @@ export interface IDraftKingsResponse {
     draftableId: number,
     firstName: string,
     lastName: string,
+    playerId: number,
     position: string,
     salary: number,
     status: string,
