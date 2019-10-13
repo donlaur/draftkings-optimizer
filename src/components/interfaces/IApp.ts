@@ -18,7 +18,8 @@ interface IPlayer {
 	lastName: string
 	positions: string[],
 	salary: number,
-	team: string
+	status: string
+	team: string,
 }
 
 export interface IContest {

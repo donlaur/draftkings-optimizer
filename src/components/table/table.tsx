@@ -70,7 +70,7 @@ export function Table( { data, lockedPlayers, setLockedPlayers }: ITableProps) {
 					data.lineups.map((lineup: ILineup, i) => (
 						<>
 							{lineup.players.map((player) => (
-								<tr className="table__row" key={player.id}>
+								<tr className={`table__row ${player.status !== 'None' ? `table__row--${player.status}` : ''}`} key={i}>
 									{/* <div>{player.id}</div> */}
 									<td className="table__cell table__cell--lock">
 										<input className="checkbox" type="checkbox" onChange={onChange} value={player.id}/>
