@@ -50,7 +50,9 @@ export function Table( { data, lockedPlayers, setLockedPlayers }: ITableProps) {
 					data.map((player: IDraftKingsResponse, i) => (
 						<tr className={`table__row ${player.status !== 'None' ? `table__row--${player.status}` : ''}`} key={i}>
 							<td className="table__cell table__cell--lock">
-								<input className="checkbox" type="checkbox" onChange={onChange} disabled={player.status === 'O'} value={player.playerId}/>
+								{player.status !== 'O' ? (
+									<input className="checkbox" type="checkbox" onChange={onChange} value={player.playerId}/>
+								): <></>}
 							</td>
 							<td className="table__cell table__cell--first-name">{player.firstName}</td>
 							<td className="table__cell table__cell--last-name">{player.lastName}</td>
