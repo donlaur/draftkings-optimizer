@@ -25,11 +25,9 @@ export function Table( { data, players, lockedPlayers, setLockedPlayers }: ITabl
 		}
 	}
 
-	console.log(data)
-
 	return (
 		<div className="table-wrapper">
-			<table className="table" role="table">
+			<table className="table">
 				<tbody>
 				<tr className="table__row table__row--header">
 					{/* <div>ID</div> */}
@@ -46,7 +44,7 @@ export function Table( { data, players, lockedPlayers, setLockedPlayers }: ITabl
 					) : <></>} */}
 				</tr>
 
-				{players.length && !data ? (
+				{players && !data ? (
 					players.map((player, i) => (
 						<tr className={`table__row ${player.status !== 'None' ? `table__row--${player.status}` : ''}`} key={i}>
 							<td className="table__cell table__cell--lock">
@@ -69,12 +67,12 @@ export function Table( { data, players, lockedPlayers, setLockedPlayers }: ITabl
 				) : <></>}
 
 				{data ? data.lineups.map((lineup, i) => (
-					<>
+					<React.Fragment key={i}>
 						{lineup.players.map((player, i) => (
 							<tr className={`table__row ${player.status !== 'None' ? `table__row--${player.status}` : ''}`} key={i}>
 								{/* <div>{player.id}</div> */}
 								<td className="table__cell table__cell--lock">
-									<input className="checkbox" type="checkbox" onChange={onChange} value={player.id} checked={player.isLocked}/>
+									<input className="checkbox" type="checkbox" onChange={onChange} value={player.id} checked={player.isLocked} disabled={true}/>
 								</td>
 								<td className="table__cell table__cell--first-name">{player.firstName}</td>
 								<td className="table__cell table__cell--last-name">{player.lastName}</td>
@@ -95,7 +93,7 @@ export function Table( { data, players, lockedPlayers, setLockedPlayers }: ITabl
 							<td className="table__cell text-align-right">{lineup.totalFppg}</td>
 							{/* <div className="table__cell text-align-right"></div> */}
 						</tr>
-					</>
+					</React.Fragment>
 				)) : <></>}
 				</tbody>
 			</table>

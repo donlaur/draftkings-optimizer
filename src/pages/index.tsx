@@ -14,12 +14,12 @@ interface IContestResponse {
 	groups: IGroup[]
 }
 
-const API = "https://evening-brushlands-00691.herokuapp.com";
-// const API = "http://127.0.0.1:5000";
+// const API = "https://evening-brushlands-00691.herokuapp.com";
+const API = "http://127.0.0.1:5000";
 
 export default function IndexPage() {
 	const [draftGroupId, setDraftGroupId] = useState();
-	const [players, setPlayers] = useState<IDraftKingsResponse[]>([]);
+	const [players, setPlayers] = useState<IDraftKingsResponse[]>(null);
 	const [data, setData] = useState<IResponse>(null);
 	const [contests, setContests] = useState<IContest[]>();
 	const [isError, setIsError] = useState();
@@ -87,8 +87,10 @@ export default function IndexPage() {
 		const URL = `${API}/${OPTIMIZE}`;
 
 		const BODY = {
-			locked: lockedPlayers.length > 0 ? lockedPlayers.join() : null
+			locked: lockedPlayers.length > 0 ? lockedPlayers : null
 		}
+
+		console.log(BODY);
 
 		try {
             const response = await post(URL, BODY);
@@ -138,6 +140,7 @@ export default function IndexPage() {
 												clearSelection();
 												setLockedPlayers([]);
 												setData(null);
+												setPlayers(null)
 											}}
 											aria-label="clear selection"
 											>
