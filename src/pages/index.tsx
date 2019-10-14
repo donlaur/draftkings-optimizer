@@ -19,14 +19,13 @@ const API = "https://evening-brushlands-00691.herokuapp.com";
 
 export default function IndexPage() {
 	const [draftGroupId, setDraftGroupId] = useState();
-	const [data, setData] = useState<IResponse | IDraftKingsResponse[]>([]);
+	const [players, setPlayers] = useState<IDraftKingsResponse[]>([]);
+	const [data, setData] = useState<IResponse>(null);
 	const [contests, setContests] = useState<IContest[]>();
 	const [isError, setIsError] = useState();
 	const [errorMessage, setErrorMessage] = useState('');
 	const [isLoadingContests, setLoadingContests] = useState(true);
 	const [lockedPlayers, setLockedPlayers] = useState<number[]>([]);
-	// const [inputRefs, setInputRefs] = useState<HTMLInputElement[]>([]);
-	const inputRef = useRef<HTMLInputElement[]>([]);
 
 
 	// Update only when isLoadingContests changes
@@ -59,23 +58,12 @@ export default function IndexPage() {
 				const response = await get(`${API}/${QUERY}?id=${draftGroupId}`);
 				const data = await response.json();
 	
-				setData(uniqBy(data, 'playerId'));
+				setPlayers(uniqBy(data, 'playerId'));
 			} catch (e) {
 				console.error(`A problem occured when trying to retrieve API: ${e}`);
 			}
 		})()
 	}, [draftGroupId])
-
-
-	// useEffect(() => {
-	// 	lockedPlayers.forEach((player) => {
-	// 		const ref = inputRef.current.find((ref) => parseInt(ref.value) === player);
-
-	// 		ref.checked = true;
-	// 	})
-
-	// 	console.log(inputRef);
-	// }, [lockedPlayers])
 
 
 	//
@@ -146,7 +134,11 @@ export default function IndexPage() {
 									})} />
 									{inputValue ? (
 										<button className="input-dropdown__button" 
-											onClick={clearSelection}
+											onClick={() => {
+												clearSelection();
+												setLockedPlayers([]);
+												setData(null);
+											}}
 											aria-label="clear selection"
 											>
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><g data-name="Layer 2"><g data-name="close"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"/><path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"/></g></g></svg>
@@ -191,7 +183,7 @@ export default function IndexPage() {
 				</div>
 			</form>
 			{!isError ? (
-				<Table data={data} setLockedPlayers={setLockedPlayers} lockedPlayers={lockedPlayers}/>
+				<Table players={players} data={data} setLockedPlayers={setLockedPlayers} lockedPlayers={lockedPlayers}/>
 			) : ''}
 		</Main>
 	)

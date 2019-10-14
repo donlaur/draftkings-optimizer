@@ -20,6 +20,7 @@ interface IPlayer {
 	salary: number,
 	status: string
 	team: string,
+    isLocked: boolean,
 }
 
 export interface IContest {

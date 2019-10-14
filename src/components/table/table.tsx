@@ -3,13 +3,14 @@ import { IResponse, ILineup } from '../interfaces/IApp';
 import { IDraftKingsResponse } from '../interfaces/IDraftKingsResponse';
 
 interface ITableProps {
-	data: IResponse | IDraftKingsResponse[],
+	data: IResponse,
+	players: IDraftKingsResponse[],
 	lockedPlayers: number[],
 	setLockedPlayers: React.Dispatch<React.SetStateAction<number[]>>
 }
 
-export function Table( { data, lockedPlayers, setLockedPlayers }: ITableProps) {
-	const onChange = (e: React.MouseEvent) => {
+export function Table( { data, players, lockedPlayers, setLockedPlayers }: ITableProps) {
+	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.currentTarget instanceof HTMLInputElement) {
 			const value = parseInt(e.currentTarget.value);
 
@@ -23,6 +24,8 @@ export function Table( { data, lockedPlayers, setLockedPlayers }: ITableProps) {
 			}
 		}
 	}
+
+	console.log(data)
 
 	return (
 		<div className="table-wrapper">
@@ -43,8 +46,8 @@ export function Table( { data, lockedPlayers, setLockedPlayers }: ITableProps) {
 					) : <></>} */}
 				</tr>
 
-				{data.length !== undefined ? (
-					data.map((player: IDraftKingsResponse, i) => (
+				{players.length && !data ? (
+					players.map((player, i) => (
 						<tr className={`table__row ${player.status !== 'None' ? `table__row--${player.status}` : ''}`} key={i}>
 							<td className="table__cell table__cell--lock">
 								{player.status !== 'O' ? (
@@ -63,37 +66,37 @@ export function Table( { data, lockedPlayers, setLockedPlayers }: ITableProps) {
 							) : <></>} */}
 						</tr>
 					))
-				) : (
-					data.lineups.map((lineup: ILineup, i) => (
-						<>
-							{lineup.players.map((player, i) => (
-								<tr className={`table__row ${player.status !== 'None' ? `table__row--${player.status}` : ''}`} key={i}>
-									{/* <div>{player.id}</div> */}
-									<td className="table__cell table__cell--lock">
-										<input className="checkbox" type="checkbox" onChange={onChange} value={player.id} checked={player.isLocked}/>
-									</td>
-									<td className="table__cell table__cell--first-name">{player.firstName}</td>
-									<td className="table__cell table__cell--last-name">{player.lastName}</td>
-									<td className="table__cell">{player.positions}</td>
-									<td className="table__cell">{player.team}</td>
-									<td className="table__cell text-align-right">{player.salary}</td>
-									<td className="table__cell text-align-right">{player.fppg}</td>
-									{/* <div className="table__cell text-align-right">Stats</div> */}
-									{/* {player.gameInfo ? (
-										<div>{player.gameInfo}</div>
-									) : <></>} */}
-								</tr>
-							))}
+				) : <></>}
 
-							<tr className="table__row table__row--total">
-								<td className="table__cell" colSpan={5}>Total</td>
-								<td className="table__cell text-align-right">{lineup.totalSalary}</td>
-								<td className="table__cell text-align-right">{lineup.totalFppg}</td>
-								{/* <div className="table__cell text-align-right"></div> */}
+				{data ? data.lineups.map((lineup, i) => (
+					<>
+						{lineup.players.map((player, i) => (
+							<tr className={`table__row ${player.status !== 'None' ? `table__row--${player.status}` : ''}`} key={i}>
+								{/* <div>{player.id}</div> */}
+								<td className="table__cell table__cell--lock">
+									<input className="checkbox" type="checkbox" onChange={onChange} value={player.id} checked={player.isLocked}/>
+								</td>
+								<td className="table__cell table__cell--first-name">{player.firstName}</td>
+								<td className="table__cell table__cell--last-name">{player.lastName}</td>
+								<td className="table__cell">{player.positions}</td>
+								<td className="table__cell">{player.team}</td>
+								<td className="table__cell text-align-right">{player.salary}</td>
+								<td className="table__cell text-align-right">{player.fppg}</td>
+								{/* <div className="table__cell text-align-right">Stats</div> */}
+								{/* {player.gameInfo ? (
+									<div>{player.gameInfo}</div>
+								) : <></>} */}
 							</tr>
-						</>
-					))
-				)}
+						))}
+
+						<tr className="table__row table__row--total">
+							<td className="table__cell" colSpan={5}>Total</td>
+							<td className="table__cell text-align-right">{lineup.totalSalary}</td>
+							<td className="table__cell text-align-right">{lineup.totalFppg}</td>
+							{/* <div className="table__cell text-align-right"></div> */}
+						</tr>
+					</>
+				)) : <></>}
 				</tbody>
 			</table>
 		</div>
