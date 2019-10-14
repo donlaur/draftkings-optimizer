@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Downshift from 'downshift';
 import uniqBy from 'lodash.uniqby';
 
@@ -14,8 +14,8 @@ interface IContestResponse {
 	groups: IGroup[]
 }
 
-// const API = "https://evening-brushlands-00691.herokuapp.com";
-const API = "http://127.0.0.1:5000";
+const API = "https://evening-brushlands-00691.herokuapp.com";
+// const API = "http://127.0.0.1:5000";
 
 export default function IndexPage() {
 	const [draftGroupId, setDraftGroupId] = useState();
