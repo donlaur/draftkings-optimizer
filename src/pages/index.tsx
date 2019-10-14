@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef, useReducer } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Downshift from 'downshift';
 import uniqBy from 'lodash.uniqby';
 
-import { get } from '../scripts/utilities/fetch';
+import { get, post } from '../scripts/utilities/fetch';
 import { IContest, IGroup, IResponse } from '../components/interfaces/IApp';
 
 import { Main } from '../layouts/main';
@@ -24,7 +24,9 @@ export default function IndexPage() {
 	const [isError, setIsError] = useState();
 	const [errorMessage, setErrorMessage] = useState('');
 	const [isLoadingContests, setLoadingContests] = useState(true);
-	const [lockedPlayers, setLockedPlayers] = useState<number[]>([])
+	const [lockedPlayers, setLockedPlayers] = useState<number[]>([]);
+	// const [inputRefs, setInputRefs] = useState<HTMLInputElement[]>([]);
+	const inputRef = useRef<HTMLInputElement[]>([]);
 
 
 	// Update only when isLoadingContests changes
@@ -46,7 +48,7 @@ export default function IndexPage() {
 
 	// Up
 	useEffect(() => {
-		const QUERY = 'get-players';
+		const QUERY = 'players';
 
 		if (!draftGroupId) {
 			return;
@@ -65,9 +67,15 @@ export default function IndexPage() {
 	}, [draftGroupId])
 
 
-	useEffect(() => {
-		console.log(lockedPlayers);
-	}, [lockedPlayers])
+	// useEffect(() => {
+	// 	lockedPlayers.forEach((player) => {
+	// 		const ref = inputRef.current.find((ref) => parseInt(ref.value) === player);
+
+	// 		ref.checked = true;
+	// 	})
+
+	// 	console.log(inputRef);
+	// }, [lockedPlayers])
 
 
 	//
@@ -84,16 +92,18 @@ export default function IndexPage() {
 	const optimizeLineups = async (e: React.MouseEvent<HTMLButtonElement>, OPTIMIZE = "optimize") => {
 		e.preventDefault();
 
-		const locked = lockedPlayers.length > 0 ? `&locked=${lockedPlayers.join()}` : '';
-
-		const URL = `${API}/${OPTIMIZE}?id=${draftGroupId}${locked}`;
-
 		if (!draftGroupId) {
 			return;
 		}
+		
+		const URL = `${API}/${OPTIMIZE}`;
+
+		const BODY = {
+			locked: lockedPlayers.length > 0 ? lockedPlayers.join() : null
+		}
 
 		try {
-            const response = await get(URL);
+            const response = await post(URL, BODY);
 			const data = await response.json() as IResponse;
 
 			if (data.success) {

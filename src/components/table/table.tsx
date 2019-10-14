@@ -4,27 +4,24 @@ import { IDraftKingsResponse } from '../interfaces/IDraftKingsResponse';
 
 interface ITableProps {
 	data: IResponse | IDraftKingsResponse[],
-	lockedPlayers: any[],
+	lockedPlayers: number[],
 	setLockedPlayers: React.Dispatch<React.SetStateAction<number[]>>
 }
 
 export function Table( { data, lockedPlayers, setLockedPlayers }: ITableProps) {
 	const onChange = (e: React.MouseEvent) => {
 		if (e.currentTarget instanceof HTMLInputElement) {
-			const value = e.currentTarget.value;
+			const value = parseInt(e.currentTarget.value);
 
 			if (lockedPlayers.includes(value)) {
 				const id = lockedPlayers.findIndex(player => player === value);
-
 				lockedPlayers.splice(id)
 
 				setLockedPlayers([...lockedPlayers]);
 			} else {
 				setLockedPlayers([...lockedPlayers, value])
-
 			}
 		}
-
 	}
 
 	return (
@@ -69,11 +66,11 @@ export function Table( { data, lockedPlayers, setLockedPlayers }: ITableProps) {
 				) : (
 					data.lineups.map((lineup: ILineup, i) => (
 						<>
-							{lineup.players.map((player) => (
+							{lineup.players.map((player, i) => (
 								<tr className={`table__row ${player.status !== 'None' ? `table__row--${player.status}` : ''}`} key={i}>
 									{/* <div>{player.id}</div> */}
 									<td className="table__cell table__cell--lock">
-										<input className="checkbox" type="checkbox" onChange={onChange} value={player.id}/>
+										<input className="checkbox" type="checkbox" onChange={onChange} value={player.id} checked={player.isLocked}/>
 									</td>
 									<td className="table__cell table__cell--first-name">{player.firstName}</td>
 									<td className="table__cell table__cell--last-name">{player.lastName}</td>
