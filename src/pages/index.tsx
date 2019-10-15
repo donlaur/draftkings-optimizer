@@ -90,8 +90,6 @@ export default function IndexPage() {
 			locked: lockedPlayers.length > 0 ? lockedPlayers : null
 		}
 
-		console.log(BODY);
-
 		try {
             const response = await post(URL, BODY);
 			const data = await response.json() as IResponse;
@@ -140,7 +138,8 @@ export default function IndexPage() {
 												clearSelection();
 												setLockedPlayers([]);
 												setData(null);
-												setPlayers(null)
+												setPlayers(null);
+												setDraftGroupId(null);
 											}}
 											aria-label="clear selection"
 											>
@@ -185,9 +184,7 @@ export default function IndexPage() {
 					</div>
 				</div>
 			</form>
-			{!isError ? (
-				<Table players={players} data={data} setLockedPlayers={setLockedPlayers} lockedPlayers={lockedPlayers}/>
-			) : ''}
+			<Table players={players} data={data} setLockedPlayers={setLockedPlayers} lockedPlayers={lockedPlayers}/>
 		</Main>
 	)
 }
