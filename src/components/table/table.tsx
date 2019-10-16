@@ -1,27 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IResponse, ILineup } from '../interfaces/IApp';
 import { IDraftKingsResponse } from '../interfaces/IDraftKingsResponse';
 
 interface ITableProps {
-	data: IResponse,
+	optimizedLineups: IResponse,
 	players: IDraftKingsResponse[],
-	lockedPlayers: number[],
-	setLockedPlayers: React.Dispatch<React.SetStateAction<number[]>>
+	setPlayers: React.Dispatch<React.SetStateAction<IDraftKingsResponse[]>>
 }
 
-export function Table( { data, players, lockedPlayers, setLockedPlayers }: ITableProps) {
+export function Table( { optimizedLineups, players, setPlayers}: ITableProps) {
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.currentTarget instanceof HTMLInputElement) {
 			const value = parseInt(e.currentTarget.value);
 
-			if (lockedPlayers.includes(value)) {
-				const id = lockedPlayers.findIndex(player => player === value);
-				lockedPlayers.splice(id)
+			const player = players.find((player) => player.playerId === value);
 
-				setLockedPlayers([...lockedPlayers]);
-			} else {
-				setLockedPlayers([...lockedPlayers, value])
-			}
+			player.isLocked = !player.isLocked;
+			
+			setPlayers([...players]);
 		}
 	}
 
@@ -45,7 +41,7 @@ export function Table( { data, players, lockedPlayers, setLockedPlayers }: ITabl
 						) : <></>} */}
 					</tr>
 				</thead>
-					{players && !data ? (
+					{players && !optimizedLineups ? (
 						<tbody>
 							{players.map((player, i) => (
 								<tr className={`table__row ${player.status !== 'None' ? `table__row--${player.status}` : ''}`} key={i}>
@@ -70,27 +66,33 @@ export function Table( { data, players, lockedPlayers, setLockedPlayers }: ITabl
 						</tbody>
 					) : <></>}
 
-					{data ? data.lineups.map((lineup, i) => (
+					{optimizedLineups ? optimizedLineups.lineups.map((lineup, i) => (
 						<React.Fragment key={i}>
 							<tbody key={i}>
-								{lineup.players.map((player, i) => (
-									<tr className={`table__row ${player.status !== 'None' ? `table__row--${player.status}` : ''}`} key={i}>
-										{/* <div>{player.id}</div> */}
-										<td className="table__cell table__cell--lock">
-											<input className="checkbox" type="checkbox" onChange={onChange} value={player.id} checked={player.isLocked} disabled={true}/>
-										</td>
-										<td className="table__cell table__cell--first-name">{player.firstName}</td>
-										<td className="table__cell table__cell--last-name">{player.lastName}</td>
-										<td className="table__cell">{player.positions}</td>
-										<td className="table__cell">{player.team}</td>
-										<td className="table__cell text-align-right">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(player.salary)}</td>
-										<td className="table__cell text-align-right">{player.fppg}</td>
-										{/* <div className="table__cell text-align-right">Stats</div> */}
-										{/* {player.gameInfo ? (
-											<div>{player.gameInfo}</div>
-										) : <></>} */}
-									</tr>
-								))}
+								{lineup.players.map((player, i) => {
+									const _player = players.find((p) => p.playerId === parseInt(player.id));
+
+									// console.log(_player)
+									
+									return (
+										<tr className={`table__row ${_player.status !== 'None' ? `table__row--${_player.status}` : ''}`} key={i}>
+											{/* <div>{player.id}</div> */}
+											<td className="table__cell table__cell--lock">
+												<input className="checkbox" type="checkbox" onChange={onChange} value={_player.playerId} checked={_player.isLocked}/>
+											</td>
+											<td className="table__cell">{_player.firstName}</td>
+											<td className="table__cell">{_player.lastName}</td>
+											<td className="table__cell">{_player.position}</td>
+											<td className="table__cell">{_player.teamAbbreviation}</td>
+											<td className="table__cell text-align-right">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(player.salary)}</td>
+											<td className="table__cell text-align-right">{_player.draftStatAttributes[0].value}</td>
+											{/* <div className="table__cell text-align-right">Stats</div> */}
+											{/* {player.gameInfo ? (
+												<div>{player.gameInfo}</div>
+											) : <></>} */}
+										</tr>
+									)
+								})}
 							</tbody>
 							<tfoot>
 								<tr className="table__row table__row--total">

@@ -2,6 +2,7 @@ export interface IDraftKingsResponse {
     draftableId: number,
     draftStatAttributes: IDraftKingsDraftStatAttributes[],
     firstName: string,
+    isLocked: boolean,
     lastName: string,
     playerId: number,
     position: string,

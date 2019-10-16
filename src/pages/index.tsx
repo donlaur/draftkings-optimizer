@@ -8,6 +8,7 @@ import { IContest, IGroup, IResponse } from '../components/interfaces/IApp';
 import { Main } from '../layouts/main';
 import { Table } from '../components/table/table';
 import { IDraftKingsResponse } from '../components/interfaces/IDraftKingsResponse';
+import { transformPlayers } from '../scripts/utilities/transformPlayers';
 
 interface IContestResponse {
 	contests: IContest[],
@@ -19,13 +20,18 @@ const API = "https://evening-brushlands-00691.herokuapp.com";
 
 export default function IndexPage() {
 	const [draftGroupId, setDraftGroupId] = useState();
-	const [players, setPlayers] = useState<IDraftKingsResponse[]>(null);
-	const [data, setData] = useState<IResponse>(null);
+
 	const [contests, setContests] = useState<IContest[]>();
+	const [isLoadingContests, setLoadingContests] = useState(true);
+
+	const [players, setPlayers] = useState<IDraftKingsResponse[]>(null);
+	const [lockedPlayers, setLockedPlayers] = useState<number[]>([]);
+	const [unlockedPlayers, setUnlockedPlayers] = useState<number[]>([]);
+
+	const [optimizedLineups, setOptimizedLineups] = useState<IResponse>(null);
+
 	const [isError, setIsError] = useState();
 	const [errorMessage, setErrorMessage] = useState('');
-	const [isLoadingContests, setLoadingContests] = useState(true);
-	const [lockedPlayers, setLockedPlayers] = useState<number[]>([]);
 
 
 	// Update only when isLoadingContests changes
@@ -58,16 +64,28 @@ export default function IndexPage() {
 				const response = await get(`${API}/${QUERY}?id=${draftGroupId}`);
 				const data = await response.json();
 	
-				setPlayers(uniqBy(data, 'playerId'));
+				setPlayers(transformPlayers(uniqBy(data, 'playerId')));
 			} catch (e) {
 				console.error(`A problem occured when trying to retrieve API: ${e}`);
 			}
 		})()
-	}, [draftGroupId])
+	}, [draftGroupId]);
+
+
+	// Set locked/unlocked players
+	useEffect(() => {
+		if (!players) {
+			return;
+		}
+
+		const locked = players.filter((player) => player.isLocked).map((player) => player.playerId);
+
+		setLockedPlayers(locked);
+	}, [players]);
 
 
 	//
-	const onContestChange = async (draftSelection: IContest) => {
+	const onContestChange = (draftSelection: IContest) => {
 		if (!draftSelection) {
 			return;	
 		}
@@ -87,7 +105,8 @@ export default function IndexPage() {
 		const URL = `${API}/${OPTIMIZE}`;
 
 		const BODY = {
-			locked: lockedPlayers.length > 0 ? lockedPlayers : null
+			locked: lockedPlayers.length > 0 ? lockedPlayers : null,
+			unlocked: unlockedPlayers.length > 0 ? unlockedPlayers : null
 		}
 
 		try {
@@ -95,7 +114,7 @@ export default function IndexPage() {
 			const data = await response.json() as IResponse;
 
 			if (data.success) {
-				setData(data);
+				setOptimizedLineups(data);
 				setIsError(!data.success);
 			} else {
 				setIsError(!data.success);
@@ -137,7 +156,7 @@ export default function IndexPage() {
 											onClick={() => {
 												clearSelection();
 												setLockedPlayers([]);
-												setData(null);
+												setOptimizedLineups(null);
 												setPlayers(null);
 												setDraftGroupId(null);
 											}}
@@ -184,7 +203,7 @@ export default function IndexPage() {
 					</div>
 				</div>
 			</form>
-			<Table players={players} data={data} setLockedPlayers={setLockedPlayers} lockedPlayers={lockedPlayers}/>
+			<Table players={players} optimizedLineups={optimizedLineups} setPlayers={setPlayers}/>
 		</Main>
 	)
 }
