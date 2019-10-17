@@ -96,7 +96,6 @@ export default function IndexPage() {
 
 		window.addEventListener('popstate', (e: PopStateEvent) => {
 			if (e.state) {
-				console.log(e.state);
 				setIsOptimized(e.state.isOptimized);
 			}
 		});
@@ -108,6 +107,10 @@ export default function IndexPage() {
 		if (!draftSelection) {
 			return;	
 		}
+
+		// Clear optimized lineups
+		setOptimizedLineups(null);
+		setIsOptimized(false);
 
 		setDraftGroupId(draftSelection.draft_group_id);
 	}
@@ -178,9 +181,6 @@ export default function IndexPage() {
 										<button className="input-dropdown__button" 
 											onClick={() => {
 												clearSelection();
-												setLockedPlayers([]);
-												setOptimizedLineups(null);
-												// setPlayers(null);
 												setDraftGroupId(null);
 												setIsError(false);
 												setErrorMessage('');
