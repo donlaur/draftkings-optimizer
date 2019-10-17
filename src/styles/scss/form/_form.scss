@@ -18,4 +18,10 @@ $block: 'form';
     &__row {
         align-items: baseline;
     }
+
+    &__col {
+        &--inline {
+            display: flex;
+        }
+    }
 }

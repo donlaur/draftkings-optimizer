@@ -130,7 +130,7 @@ export default function IndexPage() {
 		<Main>
 			<form className="form">
 				<div className="form__row row">
-					<div className="col">
+					<div className="form__col form__col--inline col">
 						<Downshift
 							onChange={selection => onContestChange(selection)}	
 							itemToString={item => (item ? item.name : '')}>
@@ -197,8 +197,6 @@ export default function IndexPage() {
 						{isError && errorMessage ? (
 							<p role="alert">{errorMessage}</p>
 						) : ''}
-					</div>
-					<div className="col col-4">
 						<button className="button" onClick={optimizeLineups}>Optimize</button>
 					</div>
 				</div>

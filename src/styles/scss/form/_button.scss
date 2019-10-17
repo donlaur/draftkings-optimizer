@@ -4,4 +4,14 @@ $block: 'button';
 
 .#{$block} {
     @include button-dark;
+
+    &[disabled] {
+        background-color: $grey-400;
+        color: $white;
+        cursor: default;
+    }
+
+    & + & {
+        margin-left: 1rem;
+    }
 }

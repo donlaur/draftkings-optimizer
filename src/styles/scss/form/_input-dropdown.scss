@@ -6,8 +6,13 @@ $block: 'input-dropdown';
 	@include input-border;
 
 	background-color: $white;
-	display: flex;
+	display: inline-flex;
 	position: relative;
+	width: 100%;
+
+	& + * {
+		margin-left: 1rem;
+	}
 
 	&--disabled {
 		border-color: $grey-800;
