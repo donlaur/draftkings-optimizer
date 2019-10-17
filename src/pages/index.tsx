@@ -64,7 +64,12 @@ export default function IndexPage() {
 				const response = await get(`${API}/${QUERY}?id=${draftGroupId}`);
 				const data = await response.json();
 	
-				setPlayers(transformPlayers(uniqBy(data, 'playerId')));
+				if (data.length > 0) {
+					setPlayers(transformPlayers(uniqBy(data, 'playerId')));
+				} else {
+					setErrorMessage('No players found');
+					setIsError(true);
+				}
 			} catch (e) {
 				console.error(`A problem occured when trying to retrieve API: ${e}`);
 			}
@@ -175,8 +180,10 @@ export default function IndexPage() {
 												clearSelection();
 												setLockedPlayers([]);
 												setOptimizedLineups(null);
-												setPlayers(null);
+												// setPlayers(null);
 												setDraftGroupId(null);
+												setIsError(false);
+												setErrorMessage('');
 											}}
 											aria-label="clear selection"
 											>
@@ -212,12 +219,16 @@ export default function IndexPage() {
 								</div>
 							)}
 						</Downshift>
-						{isError && errorMessage ? (
-							<p role="alert">{errorMessage}</p>
-						) : ''}
 						<button className="button" type="submit">Optimize</button>
 					</div>
 				</div>
+				{isError && errorMessage ? (
+					<div className="form__row row">
+						<div className="form__col col">
+							<p role="alert">{errorMessage}</p>
+						</div>
+					</div>
+				) : ''}
 			</form>
 
 			<Table players={players} isOptimized={isOptimized} optimizedLineups={optimizedLineups} setPlayers={setPlayers}/>
