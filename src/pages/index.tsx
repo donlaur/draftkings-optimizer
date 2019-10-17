@@ -29,6 +29,7 @@ export default function IndexPage() {
 	const [unlockedPlayers, setUnlockedPlayers] = useState<number[]>([]);
 
 	const [optimizedLineups, setOptimizedLineups] = useState<IResponse>(null);
+	const [isOptimized, setIsOptimized] = useState<boolean>(false);
 
 	const [isError, setIsError] = useState();
 	const [errorMessage, setErrorMessage] = useState('');
@@ -95,7 +96,7 @@ export default function IndexPage() {
 
 
 	// Request from API once contest is chosen
-	const optimizeLineups = async (e: React.MouseEvent<HTMLButtonElement>, OPTIMIZE = "optimize") => {
+	const optimizeLineups = async (e: React.FormEvent<HTMLFormElement>, OPTIMIZE = "optimize") => {
 		e.preventDefault();
 
 		if (!draftGroupId) {
@@ -116,6 +117,7 @@ export default function IndexPage() {
 			if (data.success) {
 				setOptimizedLineups(data);
 				setIsError(!data.success);
+				setIsOptimized(true);
 			} else {
 				setIsError(!data.success);
 				setErrorMessage(data.message);
@@ -128,7 +130,7 @@ export default function IndexPage() {
 
 	return (
 		<Main>
-			<form className="form">
+			<form className="form" onSubmit={optimizeLineups}>
 				<div className="form__row row">
 					<div className="form__col form__col--inline col">
 						<Downshift
@@ -197,11 +199,11 @@ export default function IndexPage() {
 						{isError && errorMessage ? (
 							<p role="alert">{errorMessage}</p>
 						) : ''}
-						<button className="button" onClick={optimizeLineups}>Optimize</button>
+						<button className="button" type="submit">Optimize</button>
 					</div>
 				</div>
 			</form>
-			<Table players={players} optimizedLineups={optimizedLineups} setPlayers={setPlayers}/>
+			<Table players={players} isOptimized={isOptimized} optimizedLineups={optimizedLineups} setPlayers={setPlayers}/>
 		</Main>
 	)
 }
