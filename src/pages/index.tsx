@@ -26,7 +26,6 @@ export default function IndexPage() {
 
 	const [players, setPlayers] = useState<IDraftKingsResponse[]>(null);
 	const [lockedPlayers, setLockedPlayers] = useState<number[]>([]);
-	const [unlockedPlayers, setUnlockedPlayers] = useState<number[]>([]);
 
 	const [optimizedLineups, setOptimizedLineups] = useState<IResponse>(null);
 	const [isOptimized, setIsOptimized] = useState<boolean>(false);
@@ -85,6 +84,20 @@ export default function IndexPage() {
 	}, [players]);
 
 
+	useEffect(() => {
+		history.pushState({
+			isOptimized
+		}, null);
+
+		window.addEventListener('popstate', (e: PopStateEvent) => {
+			if (e.state) {
+				console.log(e.state);
+				setIsOptimized(e.state.isOptimized);
+			}
+		});
+	}, []);
+
+
 	//
 	const onContestChange = (draftSelection: IContest) => {
 		if (!draftSelection) {
@@ -106,8 +119,7 @@ export default function IndexPage() {
 		const URL = `${API}/${OPTIMIZE}`;
 
 		const BODY = {
-			locked: lockedPlayers.length > 0 ? lockedPlayers : null,
-			unlocked: unlockedPlayers.length > 0 ? unlockedPlayers : null
+			locked: lockedPlayers.length > 0 ? lockedPlayers : null
 		}
 
 		try {
@@ -116,8 +128,12 @@ export default function IndexPage() {
 
 			if (data.success) {
 				setOptimizedLineups(data);
-				setIsError(!data.success);
+				setIsError(data.success);
 				setIsOptimized(true);
+
+				history.pushState({
+					isOptimized: !isOptimized
+				}, null);
 			} else {
 				setIsError(!data.success);
 				setErrorMessage(data.message);
@@ -203,6 +219,7 @@ export default function IndexPage() {
 					</div>
 				</div>
 			</form>
+
 			<Table players={players} isOptimized={isOptimized} optimizedLineups={optimizedLineups} setPlayers={setPlayers}/>
 		</Main>
 	)

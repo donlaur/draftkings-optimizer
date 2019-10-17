@@ -56,7 +56,7 @@ export function Table( { optimizedLineups, isOptimized, players, setPlayers}: IT
 						</tbody>
 					) : <></>}
 
-					{isOptimized ? optimizedLineups.lineups.map((lineup, i) => (
+					{isOptimized && optimizedLineups ? optimizedLineups.lineups.map((lineup, i) => (
 						<React.Fragment key={i}>
 							<tbody key={i}>
 								{lineup.players.map((player, i) => {
