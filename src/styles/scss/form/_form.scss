@@ -14,13 +14,10 @@ $block: 'form';
 
         text-transform: uppercase;
     }
-
-    &__row {
-        align-items: baseline;
-    }
-
+    
     &__col {
         &--inline {
+            align-items: baseline;
             display: flex;
         }
     }

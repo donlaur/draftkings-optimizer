@@ -28,6 +28,10 @@ $block: 'input-dropdown';
 			background-color: $grey-200;
 			color: $grey-800;
 		}
+
+		&::-webkit-input-placeholder {
+			line-height: normal;
+	   }
 	}
 
 	&__button {
