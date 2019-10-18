@@ -16,3 +16,11 @@
 	font: #{0/0} a;
 	text-shadow: none;
 }
+
+@mixin reset-button {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}

@@ -71,16 +71,43 @@ $block: 'table';
 		}
 
 		&:last-child {
-			padding-right: 1.5rem;
+			padding-right: 3rem;
 		}
 
-		&--lock {
-			width: 5%;
+		&--lock,
+		&--exclude {
+			width: 2%;
 			// text-align: center;
 
 			input {
 				margin-left: 0.25rem;
 			}
+		}
+
+		&--exclude {
+			padding-right: 0;
+
+			button {
+				@include reset-button;
+				@include image-replacement;
+
+				vertical-align: middle;
+
+				svg {
+					fill: $grey-500;
+				}
+
+				@include hover-focus {
+					svg {
+						fill: $grey-700;
+					}
+				}
+			}
+		}
+
+		&--stats {
+			padding-left: 2rem;
+			// width: 15%;
 		}
 
 		// &--first-name {
