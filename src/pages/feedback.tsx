@@ -6,7 +6,7 @@ export default function FeedbackPage() {
 	return (
 		<Main>
 			<form className="feedback-form form form--white" name="send_feedback" method="POST" data-netlify="true" 
-			netlify-honeypot="bot-field" action="/success">
+			data-netlify-honeypot="bot-field" action="/success">
 				<label className="form__label" hidden>Don’t fill this out if you're human:</label>
 				<input name="bot-field" hidden/>
 				<h2 className="form__heading">Comments, suggestions, bugs?</h2>
@@ -16,7 +16,7 @@ export default function FeedbackPage() {
 						<input className="form__input input" type="text" name="name" id="name" placeholder="Name"/>
 					</div>
 				</div>
-				
+
 				<div className="form__row row">
 					<div className="form__col col">
 						<label className="form__label" htmlFor="email">Your Email:</label>
