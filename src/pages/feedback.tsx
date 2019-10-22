@@ -23,8 +23,8 @@ export default function FeedbackPage() {
 
 				<div className="form__row row">
 					<div className="form__col col">
-						<label className="form__label">Message:</label>
-						<textarea className="form__textarea textarea" name="message" placeholder="Message"></textarea>
+						<label className="form__label" htmlFor="message">Message:</label>
+						<textarea className="form__textarea textarea" name="message" placeholder="Message" id="message"></textarea>
 					</div>
 				</div>
 
