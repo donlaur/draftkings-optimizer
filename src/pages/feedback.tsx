@@ -5,7 +5,7 @@ import { Main } from '../layouts/main'
 export default function FeedbackPage() {
 	return (
 		<Main>
-			<form className="feedback-form form form--white" name="send_feedback" method="POST" data-netlify="true" action="/pages/success">
+			<form className="feedback-form form form--white" name="send_feedback" method="POST" data-netlify="true" action="/success">
 				<h2 className="form__heading">Comments, suggestions, bugs?</h2>
 				<div className="form__row row">
 					<div className="form__col col">
