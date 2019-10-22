@@ -47,10 +47,9 @@ export function Nav() {
                         <li className="nav__item"><a href="/" className="nav__link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><g data-name="Layer 2"><g data-name="info"><rect transform="rotate(180 12 12)" opacity="0"/><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><circle cx="12" cy="8" r="1"/><path d="M12 10a1 1 0 0 0-1 1v5a1 1 0 0 0 2 0v-5a1 1 0 0 0-1-1z"/></g></g></svg>About</a></li> */}
 					</ul>
 				</div>
-				{/* <div className="nav__footer">
-                    <span>0.0.1</span>
-                    <a href="/">Changelog</a>
-                </div> */}
+				<div className="nav__footer">
+					<Link to="/feedback" className="nav__link">Send feedback</Link>
+				</div>
 			</div>
 		</nav>
 	)

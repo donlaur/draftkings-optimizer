@@ -1,33 +1,33 @@
 @mixin input {
-    appearance: none;
-    border: 0;
-    padding: 0.75rem 1rem;
+	appearance: none;
+	border: 0;
+	padding: 0.75rem 1rem;
 }
 
 @mixin input-border {
-    border: 1px solid $primary;
-    box-sizing: border-box;
+	border: 1px solid $primary;
+	box-sizing: border-box;
 }
 
 @mixin button {
-    @include background-color-states(transparent, $primary);
-    @include color-states($grey-900, $white);
+	@include background-color-states(transparent, $primary);
+	@include color-states($grey-900, $white);
 
-    appearance: none;
-    background-color: transparent;
+	appearance: none;
+	background-color: transparent;
 	border-radius: 1.25rem;
 	box-sizing: border-box;
-    cursor: pointer;
-    padding: 0.75rem 1.25rem;
+	cursor: pointer;
+	padding: 0.75rem 1.25rem;
 }
 
 @mixin button-dark {
-    @include button;
+	@include button;
 
-    @include background-color-states($primary);
-    @include color-states($white, $white);
-    
-    background-color: $primary;
-    border: 0;
-    color: $white;
+	@include background-color-states($primary);
+	@include color-states($white, $white);
+
+	background-color: $primary;
+	border: 0;
+	color: $white;
 }
