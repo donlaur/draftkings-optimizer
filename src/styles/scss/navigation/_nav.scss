@@ -7,11 +7,11 @@ $block: 'nav';
 	background-color: $grey-aside-dark;
 
 	@include media-min(md) {
-		position: fixed;
-		left: 0;
-		top: 0;
 		bottom: 0;
-		// width: $aside-width;
+		left: 0;
+		min-width: $aside-width;
+		position: fixed;
+		top: 0;
 	}
 	
 	&--active {
@@ -50,6 +50,14 @@ $block: 'nav';
 		border-top: 1px solid $grey-300;
 		display: flex;
 		padding: 0.75rem $horizontal-spacing;
+
+		.#{$block}__link {
+			padding: 0;
+
+			@include hover-focus {
+				background-color: transparent;
+			}
+		}
 	}
 
 	&__heading-wrapper {
@@ -107,6 +115,7 @@ $block: 'nav';
 	}
 
 	&__link {
+		color: $white;
 		display: block;
 		padding: 1rem $horizontal-spacing;
 		position: relative;
