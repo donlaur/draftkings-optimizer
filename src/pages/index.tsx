@@ -15,8 +15,8 @@ interface IContestResponse {
 	groups: IGroup[]
 }
 
-// const API = "https://evening-brushlands-00691.herokuapp.com";
-const API = "http://127.0.0.1:5000";
+const API = "https://evening-brushlands-00691.herokuapp.com";
+// const API = "http://127.0.0.1:5000";
 
 export default function IndexPage() {
 	const [draftGroupId, setDraftGroupId] = useState();
