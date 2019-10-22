@@ -5,7 +5,7 @@ import { Main } from '../layouts/main'
 export default function FeedbackPage() {
 	return (
 		<Main>
-			<form className="feedback-form form form--white" name="send_feedback" method="POST" data-netlify="true">
+			<form className="feedback-form form form--white" name="send_feedback" method="POST" data-netlify="true" action="/pages/success">
 				<h2 className="form__heading">Comments, suggestions, bugs?</h2>
 				<div className="form__row row">
 					<div className="form__col col">
@@ -33,7 +33,7 @@ export default function FeedbackPage() {
 						<button className="button" type="submit">Send</button>
 					</div>
 				</div>
-				</form>
+			</form>
 		</Main>
 	)
 }
