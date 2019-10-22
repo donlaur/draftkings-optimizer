@@ -13,14 +13,13 @@ export interface ILineup {
 interface IPlayer {
 	firstName: string,
 	fppg: number,
-	gameInfo: string
+	gameInfo: string,
 	id: string,
 	lastName: string
 	positions: string[],
 	salary: number,
-	status: string
-	team: string,
-    isLocked: boolean,
+	status: string,
+	team: string
 }
 
 export interface IContest {

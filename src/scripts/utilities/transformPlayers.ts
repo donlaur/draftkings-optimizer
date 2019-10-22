@@ -3,6 +3,7 @@ import { IDraftKingsResponse } from "../../components/interfaces/IDraftKingsResp
 export function transformPlayers(players: IDraftKingsResponse[]) {
     return players.map((player) => ({
         ...player,
+        isExcluded: false,
         isLocked: false
     }))
 }

@@ -3,6 +3,7 @@ export interface IDraftKingsResponse {
     draftStatAttributes: IDraftKingsDraftStatAttributes[],
     firstName: string,
     isLocked: boolean,
+    isExcluded: boolean,
     lastName: string,
     playerId: number,
     position: string,
@@ -13,7 +14,7 @@ export interface IDraftKingsResponse {
 
 export interface IDraftKingsDraftStatAttributes {
     id: number,
-    value: number,
+    value: string,
     sortValue: number,
     quality?: string
 }

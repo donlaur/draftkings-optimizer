@@ -10,13 +10,25 @@ interface ITableProps {
 }
 
 export function Table( { optimizedLineups, isOptimized, players, setPlayers}: ITableProps) {
-	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const onLock = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.currentTarget instanceof HTMLInputElement) {
-			const value = parseInt(e.currentTarget.value);
+			const value = parseInt(e.currentTarget.closest('.table__row').getAttribute('id'));
 
 			const player = players.find((player) => player.playerId === value);
 
 			player.isLocked = !player.isLocked;
+			
+			setPlayers([...players]);
+		}
+	}
+
+	const onExclude = (e: React.MouseEvent<HTMLButtonElement>) => {
+		if (e.currentTarget instanceof HTMLButtonElement) {
+			const value = parseInt(e.currentTarget.closest('.table__row').getAttribute('id'));
+
+			const player = players.find((player) => player.playerId === value);
+			
+			player.isExcluded = !player.isExcluded;
 			
 			setPlayers([...players]);
 		}
@@ -35,16 +47,16 @@ export function Table( { optimizedLineups, isOptimized, players, setPlayers}: IT
 						<th className="table__cell">Team</th>
 						<th className="table__cell text-align-right">Salary</th>
 						<th className="table__cell text-align-right">FPPG</th>
-						<th className="table__cell table__cell--stats text-align-right"></th>
+						{/* <th className="table__cell table__cell--stats text-align-right"></th> */}
 					</tr>
 				</thead>
 					{players && !isOptimized ? (
 						<tbody>
 							{players.map((player, i) => (
-								<tr className={`table__row ${player.status !== 'None' ? `table__row--${player.status}` : ''}`} key={i}>
-									<td className="table__cell table__cell--exclude">
+								<tr className={`table__row ${player.status && player.status !== 'None' ? `table__row--${player.status}` : player.isExcluded ? 'table__row--excluded' : ''}`} key={player.playerId} id={`${player.playerId}`}>
+									<td className={`table__cell table__cell--exclude ${player.isExcluded ? 'table__cell--isexcluded' : ''}`}>
 										{player.status !== 'O' ? (
-											<button>
+											<button onClick={onExclude}>
 												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><g data-name="Layer 2"><g data-name="close"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"/><path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"/></g></g></svg>
 												Exclude player
 											</button>
@@ -52,7 +64,7 @@ export function Table( { optimizedLineups, isOptimized, players, setPlayers}: IT
 									</td>
 									<td className="table__cell table__cell--lock">
 										{player.status !== 'O' ? (
-											<input className="checkbox" type="checkbox" onChange={onChange} value={player.playerId} checked={player.isLocked}/>
+											<input className="checkbox" type="checkbox" onChange={onLock} checked={player.isLocked}/>
 											): <></>}
 									</td>
 									<td className="table__cell">{player.firstName}</td>
@@ -61,7 +73,7 @@ export function Table( { optimizedLineups, isOptimized, players, setPlayers}: IT
 									<td className="table__cell">{player.teamAbbreviation}</td>
 									<td className="table__cell text-align-right">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(player.salary)}</td>
 									<td className="table__cell text-align-right">{player.draftStatAttributes[0].value}</td>
-									<td className="table__cell table__cell--stats text-align-right">View stats</td>
+									{/* <td className="table__cell table__cell--stats text-align-right">View stats</td> */}
 								</tr>
 							))}
 						</tbody>
@@ -74,10 +86,10 @@ export function Table( { optimizedLineups, isOptimized, players, setPlayers}: IT
 									const _player = players.find((p) => p.playerId === parseInt(player.id));
 
 									return (
-										<tr className={`table__row ${_player.status !== 'None' ? `table__row--${_player.status}` : ''}`} key={i}>
+										<tr className={`table__row ${_player.status && _player.status !== 'None' ? `table__row--${_player.status}` : _player.isExcluded ? 'table__row--excluded' : ''}`} key={_player.playerId} id={`${_player.playerId}`}>
 											<td className="table__cell table__cell--exclude"></td>
 											<td className="table__cell table__cell--lock">
-												<input className="checkbox" type="checkbox" onChange={onChange} value={_player.playerId} checked={_player.isLocked}/>
+												<input className="checkbox" type="checkbox" onChange={onLock} value={_player.playerId} checked={_player.isLocked}/>
 											</td>
 											<td className="table__cell">{_player.firstName}</td>
 											<td className="table__cell">{_player.lastName}</td>
@@ -85,14 +97,14 @@ export function Table( { optimizedLineups, isOptimized, players, setPlayers}: IT
 											<td className="table__cell">{_player.teamAbbreviation}</td>
 											<td className="table__cell text-align-right">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(player.salary)}</td>
 											<td className="table__cell text-align-right">{_player.draftStatAttributes[0].value}</td>
-											<td className="table__cell table__cell--stats text-align-right">View stats</td>
+											{/* <td className="table__cell table__cell--stats text-align-right">View stats</td> */}
 										</tr>
 									)
 								})}
 							</tbody>
 							<tfoot>
 								<tr className="table__row table__row--total">
-									<td className="table__cell" colSpan={7}>Total</td>
+									<td className="table__cell" colSpan={6}>Total</td>
 									<td className="table__cell text-align-right">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(lineup.totalSalary)}</td>
 									<td className="table__cell text-align-right">{lineup.totalFppg}</td>
 								</tr>

@@ -15,8 +15,8 @@ interface IContestResponse {
 	groups: IGroup[]
 }
 
-const API = "https://evening-brushlands-00691.herokuapp.com";
-// const API = "http://127.0.0.1:5000";
+// const API = "https://evening-brushlands-00691.herokuapp.com";
+const API = "http://127.0.0.1:5000";
 
 export default function IndexPage() {
 	const [draftGroupId, setDraftGroupId] = useState();
@@ -26,6 +26,7 @@ export default function IndexPage() {
 
 	const [players, setPlayers] = useState<IDraftKingsResponse[]>(null);
 	const [lockedPlayers, setLockedPlayers] = useState<number[]>([]);
+	const [excludedPlayers, setExcludedPlayers] = useState<number[]>([]);
 
 	const [optimizedLineups, setOptimizedLineups] = useState<IResponse>(null);
 	const [isOptimized, setIsOptimized] = useState<boolean>(false);
@@ -89,6 +90,18 @@ export default function IndexPage() {
 	}, [players]);
 
 
+	// Set excluded players
+	useEffect(() => {
+		if (!players) {
+			return;
+		}
+
+		const locked = players.filter((player) => player.isExcluded).map((player) => player.playerId);
+
+		setExcludedPlayers(locked);
+	}, [players]);
+
+
 	useEffect(() => {
 		history.pushState({
 			isOptimized
@@ -127,7 +140,8 @@ export default function IndexPage() {
 		const URL = `${API}/${OPTIMIZE}`;
 
 		const BODY = {
-			locked: lockedPlayers.length > 0 ? lockedPlayers : null
+			locked: lockedPlayers.length > 0 ? lockedPlayers : null,
+			excluded: excludedPlayers.length > 0 ? excludedPlayers : null
 		}
 
 		try {
