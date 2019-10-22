@@ -1,15 +1,43 @@
 export interface IDraftKingsResponse {
-    draftableId: number,
-    draftStatAttributes: IDraftKingsDraftStatAttributes[],
-    firstName: string,
+    players: IDraftKingsPlayer[],
+    team_series_list: IDraftKingsTeamSeriesList[]
+}
+
+export interface IDraftKingsPlayer {
+    draft: {
+        draftable: boolean,
+        exceptional_messages: string[],
+        salary: number,
+        starts_at: string
+    },
+    first_name: string,
+    id: number,
+    jersey_number: number,
+    last_name: string,
+    match_up: {
+        away_team_id: number,
+        home_team_id: number,
+        id: number,
+        opposition_rank: Number,
+    },
+    points_per_contest: number,
+    position: {
+        id: number,
+        name: string
+    }
+    team_id: number,
+    status: string | null,
     isLocked: boolean,
-    isExcluded: boolean,
-    lastName: string,
-    playerId: number,
-    position: string,
-    salary: number,
-    status: string,
-    teamAbbreviation: string
+    isExcluded: boolean
+}
+
+interface IDraftKingsTeamSeriesList {
+    away_team_id: number,
+    home_team_id: number,
+    id: number,
+    starts_at: string,
+    status_id: number,
+    weather: null
 }
 
 export interface IDraftKingsDraftStatAttributes {

@@ -1,6 +1,6 @@
-import { IDraftKingsResponse } from "../../components/interfaces/IDraftKingsResponse";
+import { IDraftKingsPlayer } from "../../components/interfaces/IDraftKingsResponse";
 
-export function transformPlayers(players: IDraftKingsResponse[]) {
+export function transformPlayers(players: IDraftKingsPlayer[]) {
     return players.map((player) => ({
         ...player,
         isExcluded: false,

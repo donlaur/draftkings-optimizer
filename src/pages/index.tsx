@@ -7,7 +7,7 @@ import { IContest, IGroup, IResponse } from '../components/interfaces/IApp';
 
 import { Main } from '../layouts/main';
 import { Table } from '../components/table/table';
-import { IDraftKingsResponse } from '../components/interfaces/IDraftKingsResponse';
+import { IDraftKingsResponse, IDraftKingsPlayer } from '../components/interfaces/IDraftKingsResponse';
 import { transformPlayers } from '../scripts/utilities/transformPlayers';
 
 interface IContestResponse {
@@ -24,7 +24,7 @@ export default function IndexPage() {
 	const [contests, setContests] = useState<IContest[]>();
 	const [isLoadingContests, setLoadingContests] = useState(true);
 
-	const [players, setPlayers] = useState<IDraftKingsResponse[]>(null);
+	const [players, setPlayers] = useState<IDraftKingsPlayer[]>(null);
 	const [lockedPlayers, setLockedPlayers] = useState<number[]>([]);
 	const [excludedPlayers, setExcludedPlayers] = useState<number[]>([]);
 
@@ -54,19 +54,17 @@ export default function IndexPage() {
 
 	// Up
 	useEffect(() => {
-		const QUERY = 'players';
-
 		if (!draftGroupId) {
 			return;
 		}
 
 		(async () => {
 			try {
-				const response = await get(`${API}/${QUERY}?id=${draftGroupId}`);
-				const data = await response.json();
+				const response = await get(`${API}/players?id=${draftGroupId}`);
+				const data = await response.json() as IDraftKingsResponse;
 	
-				if (data.length > 0) {
-					setPlayers(transformPlayers(uniqBy(data, 'playerId')));
+				if (data.players.length > 0) {
+					setPlayers(transformPlayers(data.players));
 				} else {
 					setErrorMessage('No players found');
 					setIsError(true);
@@ -84,7 +82,7 @@ export default function IndexPage() {
 			return;
 		}
 
-		const locked = players.filter((player) => player.isLocked).map((player) => player.playerId);
+		const locked = players.filter((player) => player.isLocked).map((player) => player.id);
 
 		setLockedPlayers(locked);
 	}, [players]);
@@ -96,7 +94,7 @@ export default function IndexPage() {
 			return;
 		}
 
-		const locked = players.filter((player) => player.isExcluded).map((player) => player.playerId);
+		const locked = players.filter((player) => player.isExcluded).map((player) => player.id);
 
 		setExcludedPlayers(locked);
 	}, [players]);
