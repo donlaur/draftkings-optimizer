@@ -39,4 +39,8 @@ $block: 'form';
 	&__textarea {
 		width: 100%;
 	}
+
+	&__textarea {
+		min-height: 10rem;
+	}
 }
