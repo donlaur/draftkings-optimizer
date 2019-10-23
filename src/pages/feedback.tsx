@@ -8,7 +8,9 @@ export default function FeedbackPage() {
 			<form className="feedback-form form form--white" name="send_feedback" method="POST" data-netlify="true" 
 			data-netlify-honeypot="bot-field" action="/success">
 				<h2 className="form__heading">Comments, suggestions, bugs?</h2>
-				<label className="form__label" htmlFor="bot-field" hidden>Don’t fill this out if you're human:</label>
+
+				<label className="form__label" htmlFor="bot-field" hidde
+				n>Don’t fill this out if you're human:</label>
 				<input name="bot-field" id="bot-field" hidden/>
 				<div className="form__row row">
 					<div className="form__col col">
