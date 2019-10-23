@@ -2,13 +2,14 @@ import React from "react"
 
 import { Main } from '../layouts/main'
 
-export default function FeedbackPage() {
+export default function HelpPage() {
 	return (
 		<Main>
-			<form className="feedback-form form form--white" name="send_feedback" method="POST" data-netlify="true" 
+			<form className="form form--white" name="send_feedback" method="POST" data-netlify="true" 
 			data-netlify-honeypot="bot-field" action="/success">
 				<h2 className="form__heading">Comments, suggestions, bugs?</h2>
-				
+				<p>Leave a message!</p>
+
 				<input type="hidden" name="form-name" value="send_feedback" hidden />
 				<label className="form__label" htmlFor="bot-field" hidden>Don’t fill this out if you're human:</label>
 				<input type="hidden" name="bot-field" id="bot-field" hidden/>

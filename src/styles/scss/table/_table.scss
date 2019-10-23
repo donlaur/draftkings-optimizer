@@ -23,16 +23,6 @@ $block: 'table';
 		border-top: 1px solid $grey-200;
 		box-sizing: border-box;
 
-		// &:first-child {
-		// 	border-top-left-radius: $border-radius;
-		// 	border-top-right-radius: $border-radius;
-		// }
-
-		// &:last-child {
-		// 	border-bottom-left-radius: $border-radius;
-		// 	border-bottom-right-radius: $border-radius;
-		// }
-
 		&--header {
 			font-weight: 600;
 			white-space: nowrap;
@@ -41,14 +31,6 @@ $block: 'table';
 
 		&--total {
 			font-weight: 600;
-			// border-bottom-left-radius: 0.25rem;
-			// border-bottom-right-radius: 0.25rem;
-
-			// & + .#{$block}__row {
-			// 	border-top-left-radius: 0.25rem;
-			// 	border-top-right-radius: 0.25rem;
-			// 	margin-top: 1rem;
-			// }
 		}
 
 		&--O {
@@ -68,26 +50,33 @@ $block: 'table';
 
 	&__cell {
 		padding: 1rem;
-		// width: 10%;
 
 		&:first-child {
 			padding-left: 1.5rem;
 		}
 
 		&:last-child {
-			padding-right: 3rem;
+			padding-right: 1.5rem;
 		}
 
 		&--lock,
 		&--exclude {
 			width: 2%;
-			// text-align: center;
+
+			* {
+				vertical-align: middle;
+			}
 
 			input {
-				margin-left: 0.25rem;
+				margin-left: 0.5rem;
 			}
 		}
-		
+
+		&--lock {
+			padding-left: 0.5rem;
+			padding-right: 0.25rem;
+		}
+
 		&--exclude {
 			padding-right: 0;
 			
@@ -110,33 +99,8 @@ $block: 'table';
 			}
 		}
 
-		&--isexcluded {
-			button {
-				svg {
-					transform: rotate(45deg);
-				}
-			}
-		}
-
 		&--stats {
 			padding-left: 2rem;
-			// width: 15%;
 		}
-
-		// &--first-name {
-		// 	width: 10%;
-		// }
-
-		// &--last-name {
-		// 	width: 20%;
-		// }
-
-		// &--team {
-		// 	width: 20%;
-		// }
-
-		// &--positions {
-		// 	width: 20%;
-		// }
 	}
 }

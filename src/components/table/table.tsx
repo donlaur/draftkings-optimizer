@@ -39,7 +39,7 @@ export function Table( { optimizedLineups, isOptimized, players, setPlayers}: IT
 			<table className="table">
 				<thead>
 					<tr className="table__row table__row--header">
-						<th className="table__cell table__cell--lock"></th>
+						<th className="table__cell table__cell--exclude"></th>
 						<th className="table__cell table__cell--lock"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><g data-name="Layer 2"><g data-name="lock"><rect width="24" height="24" opacity="0"/><path d="M17 8h-1V6.11a4 4 0 1 0-8 0V8H7a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3zm-7-1.89A2.06 2.06 0 0 1 12 4a2.06 2.06 0 0 1 2 2.11V8h-4zM18 19a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1z"/><path d="M12 12a3 3 0 1 0 3 3 3 3 0 0 0-3-3zm0 4a1 1 0 1 1 1-1 1 1 0 0 1-1 1z"/></g></g></svg></th>
 						<th className="table__cell">First name</th>
 						<th className="table__cell">Last name</th>
@@ -53,10 +53,14 @@ export function Table( { optimizedLineups, isOptimized, players, setPlayers}: IT
 						<tbody>
 							{players.map((player) => (
 								<tr className={`table__row ${player.status !== '' ? `table__row--${player.status}` : player.isExcluded ? 'table__row--excluded' : ''}`} key={player.id} id={`${player.id}`}>
-									<td className={`table__cell table__cell--exclude ${player.isExcluded ? 'table__cell--isexcluded' : ''}`}>
+									<td className="table__cell table__cell--exclude">
 										{player.status !== 'O' ? (
 											<button onClick={onExclude}>
-												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><g data-name="Layer 2"><g data-name="close"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"/><path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"/></g></g></svg>
+												{player.isExcluded ? (
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><g data-name="Layer 2"><g data-name="plus"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"/><path d="M19 11h-6V5a1 1 0 0 0-2 0v6H5a1 1 0 0 0 0 2h6v6a1 1 0 0 0 2 0v-6h6a1 1 0 0 0 0-2z"/></g></g></svg>
+													) : (
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><g data-name="Layer 2"><g data-name="close"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"/><path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"/></g></g></svg>
+												)}
 												Exclude player
 											</button>
 										) : <></>}
@@ -85,7 +89,18 @@ export function Table( { optimizedLineups, isOptimized, players, setPlayers}: IT
 
 									return (
 										<tr className={`table__row ${_player.status && _player.status !== 'None' ? `table__row--${_player.status}` : _player.isExcluded ? 'table__row--excluded' : ''}`} key={_player.id} id={`${_player.id}`}>
-											<td className="table__cell table__cell--exclude"></td>
+											<td className="table__cell table__cell--exclude">
+												{player.status !== 'O' ? (
+													<button onClick={onExclude}>
+														{_player.isExcluded ? (
+																<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><g data-name="Layer 2"><g data-name="plus"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"/><path d="M19 11h-6V5a1 1 0 0 0-2 0v6H5a1 1 0 0 0 0 2h6v6a1 1 0 0 0 2 0v-6h6a1 1 0 0 0 0-2z"/></g></g></svg>
+															) : (
+																<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><g data-name="Layer 2"><g data-name="close"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"/><path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"/></g></g></svg>
+														)}
+														Exclude player
+													</button>
+												) : <></>}
+											</td>
 											<td className="table__cell table__cell--lock">
 												<input className="checkbox" type="checkbox" onChange={onLock} value={_player.id} checked={_player.isLocked}/>
 											</td>
