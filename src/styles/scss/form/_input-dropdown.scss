@@ -6,7 +6,7 @@ $block: 'input-dropdown';
 	@include input-border;
 
 	background-color: $white;
-	display: inline-flex;
+	display: inline-block;
 	position: relative;
 	width: 100%;
 
@@ -22,7 +22,7 @@ $block: 'input-dropdown';
 		@include input;
 
 		background-color: transparent;
-		flex: 1;
+		width: 100%;
 
 		&[disabled] {
 			background-color: $grey-200;
@@ -40,7 +40,10 @@ $block: 'input-dropdown';
 		background-color: transparent;
 		border: 0;
 		padding: 0;
-		position: relative;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		top: 0;
 		padding-left: 0.5rem;
 		padding-right: 0.5rem;
 
