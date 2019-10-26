@@ -9,15 +9,21 @@
 	box-sizing: border-box;
 }
 
+@mixin clear-button {
+	appearance: none;
+	background-color: transparent;
+	border: 0;
+	box-sizing: border-box;
+	cursor: pointer;
+	padding: 0;
+}
+
 @mixin button {
 	@include background-color-states(transparent, $primary);
 	@include color-states($grey-900, $white);
-
-	appearance: none;
-	background-color: transparent;
+	@include clear-button;
+	
 	border-radius: 1.25rem;
-	box-sizing: border-box;
-	cursor: pointer;
 	padding: 0.75rem 1.25rem;
 }
 

@@ -3,14 +3,11 @@
 $block: 'form';
 
 .#{$block} {
-	// background-color: $grey-100;
 	border-radius: 0.5rem;
 	box-sizing: border-box;
-	// margin-bottom: 1.5rem;
 	
 	&--white {
 		background-color: $white;
-		padding: 1.5rem;
 	}
 
 	&__row + &__row {

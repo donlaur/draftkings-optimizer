@@ -1,0 +1,52 @@
+@import '../reference/index';
+
+$block: 'modal';
+
+.#{$block} {
+    display: none;
+    
+    &--active {
+        background: rgba(0, 0, 0, 0.3);
+        bottom: 0;
+        display: block;
+        left: 0;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 9999;
+    }
+
+    &__content {
+        background-color: $white;
+        height: 100%;
+        left: 50%;
+        min-width: 100%;
+        padding: 3rem 2rem;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        
+        @include media-min(md) {
+            border-radius: 0.25rem;
+            height: auto;
+            min-width: 30rem;
+        }
+    }
+
+    &__close {
+        @include clear-button;
+        @include image-replacement;
+
+        position: absolute;
+        top: 1rem;
+        right: 0.75rem;
+
+        svg {
+            fill: $grey-400;
+
+            @include hover-focus {
+                fill: $grey-900;
+            }
+        }
+    }
+}

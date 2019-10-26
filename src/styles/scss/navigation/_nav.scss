@@ -65,12 +65,20 @@ $block: 'nav';
 
 	&__footer {
 		border-top: 1px solid $primary-white;
-		color: $primary-white;
-		display: flex;
 		padding: 0.75rem $horizontal-spacing;
-
+		
 		* {
 			margin: 0;
+		}
+		
+		button {
+			@include clear-button;
+
+			color: $primary-white;
+
+			@include hover-focus {
+				color: $white;
+			}
 		}
 	}
 
