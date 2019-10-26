@@ -5,6 +5,11 @@ import { Main } from '../layouts/main'
 export default function HelpPage() {
 	return (
 		<Main>
+			<article>
+				<h2>How to use</h2>
+				
+			</article>
+
 			<form className="form form--white" name="send_feedback" method="POST" data-netlify="true" 
 			data-netlify-honeypot="bot-field" action="/success">
 				<h2 className="form__heading">Comments, suggestions, bugs?</h2>

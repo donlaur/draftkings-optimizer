@@ -166,7 +166,8 @@ export default function IndexPage() {
 
 	return (
 		<Main>
-			<form className="form" onSubmit={optimizeLineups}>
+			<div className="main__header">
+				<form className="container form" onSubmit={optimizeLineups}>
 				<div className="form__row row">
 					<div className="form__col form__col--inline col">
 						<Downshift
@@ -242,8 +243,11 @@ export default function IndexPage() {
 					</div>
 				) : ''}
 			</form>
+			</div>
 
-			<Table players={players} isOptimized={isOptimized} optimizedLineups={optimizedLineups} setPlayers={setPlayers}/>
+			<div className="main__container container">
+				<Table players={players} isOptimized={isOptimized} optimizedLineups={optimizedLineups} setPlayers={setPlayers}/>
+			</div>
 		</Main>
 	)
 }

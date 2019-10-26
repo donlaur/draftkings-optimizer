@@ -45,9 +45,9 @@ export function Nav() {
 								</Link>
 							</li>
 						</ul>
-						<div className="nav__footer">
+						{/* <div className="nav__footer">
 							<p>Last updated: 10/22/19</p>
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>

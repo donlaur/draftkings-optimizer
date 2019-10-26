@@ -12,10 +12,13 @@ export function Main({ children }) {
             <SEO />
             <Nav/>
 
-            <main>
-				<div className="container">
+            <main className="main">
+                {/* <div className="main__header">
+                     <h2>Optimize</h2>
+                </div> */}
+				{/* <div className="main__container container"> */}
                 	{children}
-				</div>
+				{/* </div> */}
             </main>
         </>
     )

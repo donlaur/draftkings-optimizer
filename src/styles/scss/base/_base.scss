@@ -8,18 +8,6 @@ body {
 	line-height: 1.5;
 }
 
-main {
-	margin-bottom: 1.5rem;
-	margin-top: 1.5rem;
-	position: relative;
-
-	@include media-min(md) {
-		margin-left: $aside-width;
-		margin-bottom: $main-margin-top;
-		margin-top: $main-margin-top;
-	}
-}
-
 a {
 	text-decoration: none;
 }
