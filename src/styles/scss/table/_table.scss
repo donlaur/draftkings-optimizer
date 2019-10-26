@@ -18,6 +18,16 @@ $block: 'table';
 		display: none;
 	}
 
+	// &__tbody {
+		// border-top: 1px solid $grey-200;
+
+		// .#{$block}__row {
+		// 	&:nth-child(even) {
+		// 		background-color: $primary-lightest;
+		// 	}
+		// }
+	// }
+
 	&__row {
 		background-color: $white;
 		border-top: 1px solid $grey-200;
@@ -45,6 +55,7 @@ $block: 'table';
 
 		&--excluded {
 			background-color: $grey-200;
+			color: $grey-900;
 		}
 	}
 

@@ -50,9 +50,9 @@ export function Table( { optimizedLineups, isOptimized, players, setPlayers}: IT
 					</tr>
 				</thead>
 					{players && !isOptimized ? (
-						<tbody>
+						<tbody className="table__tbody">
 							{players.map((player) => (
-								<tr className={`table__row ${player.status !== '' ? `table__row--${player.status}` : player.isExcluded ? 'table__row--excluded' : ''}`} key={player.id} id={`${player.id}`}>
+								<tr className={`table__row ${player.isExcluded  ? `table__row--excluded` : player.status !== '' ? `table__row--${player.status}` : ''}`} key={player.id} id={`${player.id}`}>
 									<td className="table__cell table__cell--exclude">
 										{player.status !== 'O' ? (
 											<button onClick={onExclude}>
@@ -83,12 +83,12 @@ export function Table( { optimizedLineups, isOptimized, players, setPlayers}: IT
 
 					{isOptimized && optimizedLineups && players ? optimizedLineups.lineups.map((lineup, i) => (
 						<React.Fragment key={i}>
-							<tbody key={i}>
+							<tbody className="table__tbody" key={i}>
 								{lineup.players.map((player, i) => {
 									const _player = players.find((p) => p.id === parseInt(player.id));
 
 									return (
-										<tr className={`table__row ${_player.status && _player.status !== 'None' ? `table__row--${_player.status}` : _player.isExcluded ? 'table__row--excluded' : ''}`} key={_player.id} id={`${_player.id}`}>
+										<tr className={`table__row ${_player.isExcluded  ? `table__row--excluded` : _player.status && _player.status !== 'None' ? `table__row--${_player.status}` : ''}`} key={_player.id} id={`${_player.id}`}>
 											<td className="table__cell table__cell--exclude">
 												{player.status !== 'O' ? (
 													<button onClick={onExclude}>
