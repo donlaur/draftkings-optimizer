@@ -1,0 +1,96 @@
+@import '../reference/index';
+
+$block: 'nav';
+
+.#{$block} {
+	$horizontal-spacing: 2rem;
+
+	background-color: $grey-aside-dark;
+	padding-bottom: $horizontal-spacing;
+	padding-top: $horizontal-spacing;
+
+	&--active {
+		.#{$block}__main {
+			background: rgba(#000, 0.75);
+			left: 0;
+			right: 0;
+			// z-index: 999;
+		}
+	}
+
+	&__container {
+		@include container;
+
+		display: flex;
+
+		@include media-min(md) {
+			justify-content: space-between;
+		}
+	}
+
+	&__main {
+		display: flex;
+		align-items: center;
+	}
+
+	&__mobile-button {
+		@include image-replacement;
+
+		background-color: transparent;
+		cursor: pointer;
+		display: inline-block;
+		margin-right: 1rem;
+		padding: 0;
+
+		@include media-min(md) {
+			display: none;
+			margin-right: 0;
+		}
+
+		svg {
+			fill: $white;
+		}
+	}
+
+	&__heading {
+		color: $white;
+		display: inline-block;
+		font-size: 1.25rem;
+		margin: 0;
+	}
+
+	&__list {
+		list-style: none;
+		margin-bottom: 0;
+		margin-top: 0;
+		padding-left: 0;
+	}
+
+	&__item {
+		display: inline-block;
+		margin-left: 1rem;
+		margin-right: 1rem;
+
+		&:first-child {
+			margin-left: 0;
+		}
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+
+	&__link {
+		color: $primary-light;
+
+		@include hover-focus {
+			color: $white;
+		}
+
+		&--active {
+			&:visited {
+				color: $white;
+			}
+		}
+	}
+}
