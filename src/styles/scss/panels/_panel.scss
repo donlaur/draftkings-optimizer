@@ -1,0 +1,14 @@
+@import '../reference/index';
+
+$block: 'panel';
+
+.#{$block} {
+	margin-top: 2rem;
+
+	&__heading {
+		@include font-weight(200);
+		@include font-size-36;
+
+		margin-top: 5rem;
+	}
+}

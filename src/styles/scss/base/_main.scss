@@ -3,39 +3,7 @@
 $block: 'main';
 
 .#{$block} {
-    // position: relative;
-
-    // @include media-min(md) {
-    //     margin-left: $aside-width;
-    // }
-
-    // &__header {
-    //     align-items: center;
-    //     border-bottom: 1px solid $grey-300;
-    //     display: flex;
-    //     background-color: $white;
-    //     height: $top-width;
-
-    //     @include media-min(md) {
-    //         left: $aside-width;
-    //         position: fixed;
-    //         right: 0;
-    //         top: 0;
-    //         z-index: 998;
-    //     }
-    // }
-    
-    // &__container {
-    //     margin-bottom: 1.5rem;
-    //     // margin-top: 1.5rem;
-    //     padding-left: 1rem;
-    //     padding-right: 1rem;
-    //     position: relative;
-    
-    //     @include media-min(md) {
-    //         margin-top: $top-width + 2rem;
-    //         padding-left: 2rem;
-    //         padding-right: 2rem;
-    //     }
-    // }
+	&__container {
+		@include container;
+	}
 }

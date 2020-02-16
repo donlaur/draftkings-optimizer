@@ -49,7 +49,7 @@ export function Table( { optimizedLineups, isOptimized, players, setPlayers}: IT
 						<th className="table__cell text-align-right">FPPG</th>
 					</tr>
 				</thead>
-					{players && !isOptimized ? (
+					{/* {players && !isOptimized ? (
 						<tbody className="table__tbody">
 							{players.map((player) => (
 								<tr className={`table__row ${player.isExcluded  ? `table__row--excluded` : player.status !== '' ? `table__row--${player.status}` : ''}`} key={player.id} id={`${player.id}`}>
@@ -79,9 +79,9 @@ export function Table( { optimizedLineups, isOptimized, players, setPlayers}: IT
 								</tr>
 							))}
 						</tbody>
-					) : <></>}
+					) : <></>} */}
 
-					{isOptimized && optimizedLineups && players ? optimizedLineups.lineups.map((lineup, i) => (
+					{isOptimized ? optimizedLineups.lineups.map((lineup, i) => (
 						<React.Fragment key={i}>
 							<tbody className="table__tbody" key={i}>
 								{lineup.players.map((player, i) => {

@@ -5,3 +5,7 @@
  */
 
 // You can delete this file if you're not using it
+
+import 'normalize.css';
+import 'bootstrap/scss/bootstrap-grid.scss';
+import './src/styles/styles.scss';

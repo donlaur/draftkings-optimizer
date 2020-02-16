@@ -9,6 +9,7 @@ import { Main } from '../layouts/main';
 import { Table } from '../components/table/table';
 import { IDraftKingsResponse, IDraftKingsPlayer } from '../components/interfaces/IDraftKingsResponse';
 import { transformPlayers } from '../scripts/utilities/transformPlayers';
+import Panel from '../templates/panel';
 
 interface IContestResponse {
 	contests: IContest[],
@@ -166,8 +167,8 @@ export default function IndexPage() {
 
 	return (
 		<Main>
-			<div className="main__header">
-				<form className="container form" onSubmit={optimizeLineups}>
+			<Panel heading="Optimize">
+				<form className="form" onSubmit={optimizeLineups}>
 				<div className="form__row row">
 					<div className="form__col form__col--inline col">
 						<Downshift
@@ -241,13 +242,15 @@ export default function IndexPage() {
 							<p role="alert">{errorMessage}</p>
 						</div>
 					</div>
-				) : ''}
+				) : <></>}
 			</form>
-			</div>
+			</Panel>
 
-			<div className="main__container container">
-				<Table players={players} isOptimized={isOptimized} optimizedLineups={optimizedLineups} setPlayers={setPlayers}/>
-			</div>
+			{players ? (
+				<Panel>
+					<Table players={players} isOptimized={isOptimized} optimizedLineups={optimizedLineups} setPlayers={setPlayers}/>
+				</Panel>
+			) : <></>}
 		</Main>
 	)
 }

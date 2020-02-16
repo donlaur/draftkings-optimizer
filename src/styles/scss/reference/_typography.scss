@@ -1,3 +1,11 @@
+@mixin font-weight($default: 400) {
+	font-weight: $default
+}
+
 @mixin font-size-16 {
-    font-size: 16px;
+    font-size: 1rem;
+}
+
+@mixin font-size-36 {
+	font-size: 2.25rem;
 }
