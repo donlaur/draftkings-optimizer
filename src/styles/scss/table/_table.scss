@@ -42,10 +42,6 @@ $block: 'table';
         &:last-child {
             width: 1%;
             white-space: nowrap;
-
-            > * {
-                vertical-align: middle;
-            }
         }
 
         &:first-child {
@@ -58,6 +54,15 @@ $block: 'table';
 
         &--center {
             text-align: center;
+        }
+    }
+
+    &__button {
+        @include clear-button;
+
+        svg {
+            fill: $primary-lighter;
+            vertical-align: middle;
         }
     }
 }

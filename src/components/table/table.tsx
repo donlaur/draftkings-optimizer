@@ -51,15 +51,17 @@ export function Table({
             <table className="table">
                 <thead>
                     <tr className="table__row table__row--header">
-                        <th className="table__cell table__cell--lock"></th>
-                        <th className="table__cell">Status</th>
+                        <th className="table__cell"></th>
+                        <th className="table__cell table__cell--center">
+                            Status
+                        </th>
                         <th className="table__cell">First name</th>
                         <th className="table__cell">Last name</th>
                         <th className="table__cell">Positions</th>
                         <th className="table__cell">Team</th>
                         <th className="table__cell text-align-right">Salary</th>
                         <th className="table__cell text-align-right">FPPG</th>
-                        <th className="table__cell table__cell--lock"></th>
+                        <th className="table__cell"></th>
                     </tr>
                 </thead>
                 {players && !isOptimized ? (
@@ -76,7 +78,7 @@ export function Table({
                                 key={player.id}
                                 id={`${player.id}`}
                             >
-                                <td className="table__cell table__cell--lock">
+                                <td className="table__cell">
                                     {player.status !== 'O' ? (
                                         <input
                                             className="checkbox"
@@ -97,7 +99,11 @@ export function Table({
                                         }`}
                                     >
                                         {player.status
-                                            ? player.status
+                                            ? player.status === 'O'
+                                                ? 'Injured'
+                                                : player.status === 'Q'
+                                                ? 'GTD'
+                                                : player.status
                                             : 'Active'}
                                     </span>
                                 </td>
@@ -121,27 +127,41 @@ export function Table({
                                 <td className="table__cell text-align-right">
                                     {player.points_per_contest}
                                 </td>
-                                <td className="table__cell table__cell--lock">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        width="24"
-                                        height="24"
-                                    >
-                                        <g data-name="Layer 2">
-                                            <g data-name="more-vertical">
-                                                <rect
-                                                    width="24"
-                                                    height="24"
-                                                    transform="rotate(-90 12 12)"
-                                                    opacity="0"
-                                                />
-                                                <circle cx="12" cy="12" r="2" />
-                                                <circle cx="12" cy="5" r="2" />
-                                                <circle cx="12" cy="19" r="2" />
+                                <td className="table__cell">
+                                    <button className="table__button">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            width="24"
+                                            height="24"
+                                        >
+                                            <g data-name="Layer 2">
+                                                <g data-name="more-vertical">
+                                                    <rect
+                                                        width="24"
+                                                        height="24"
+                                                        transform="rotate(-90 12 12)"
+                                                        opacity="0"
+                                                    />
+                                                    <circle
+                                                        cx="12"
+                                                        cy="12"
+                                                        r="2"
+                                                    />
+                                                    <circle
+                                                        cx="12"
+                                                        cy="5"
+                                                        r="2"
+                                                    />
+                                                    <circle
+                                                        cx="12"
+                                                        cy="19"
+                                                        r="2"
+                                                    />
+                                                </g>
                                             </g>
-                                        </g>
-                                    </svg>
+                                        </svg>
+                                    </button>
                                 </td>
                             </tr>
                         ))}
