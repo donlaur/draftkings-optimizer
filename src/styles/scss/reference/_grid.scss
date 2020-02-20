@@ -14,13 +14,13 @@ $grid-gutter-width: (
     xl: 2rem,
 );
 
+$padding-horizontal: 2rem;
+
 // Maximum width of the grid.
 $grid-max-width: 68rem !default;
 
 /// A container of rows, preventing grids from taking full-width of the page.
 @mixin container {
-    $padding-horizontal: 2rem;
-
     margin-left: auto;
     margin-right: auto;
     max-width: $grid-max-width;

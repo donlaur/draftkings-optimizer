@@ -3,12 +3,26 @@
 $block: 'panel';
 
 .#{$block} {
-	margin-top: 2rem;
+    margin-top: 2rem;
 
-	&__heading {
-		@include font-weight(200);
-		@include font-size-36;
+    .table-wrapper {
+        margin-left: -$padding-horizontal;
+        margin-right: -$padding-horizontal;
 
-		margin-top: 5rem;
-	}
+        @include media-min(md) {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    &__heading {
+        @include font-weight(200);
+        @include font-size-36;
+
+        margin-top: 2rem;
+
+        @include media-min(md) {
+            margin-top: 5rem;
+        }
+    }
 }
