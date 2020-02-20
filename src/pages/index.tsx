@@ -325,25 +325,29 @@ export default function IndexPage() {
                             </button>
                         </div>
                     </div>
-                    <div className="form__row row">
-                        <div className="form__col form__col--inline col">
-                            <div className="form__bar">
-                                <button
-                                    className="form__button button button--sm-bord-rad"
-                                    type="submit"
-                                >
-                                    Bulk Actions
-                                </button>
-                                <div className="form__filter">
-                                    <p>Filter</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     {isError && errorMessage ? (
                         <div className="form__row row">
                             <div className="form__col col">
                                 <p role="alert">{errorMessage}</p>
+                            </div>
+                        </div>
+                    ) : (
+                        <></>
+                    )}
+                    {players ? (
+                        <div className="form__row row">
+                            <div className="form__col form__col--inline col">
+                                <div className="form__bar">
+                                    <button
+                                        className="form__button button button--sm-bord-rad"
+                                        type="submit"
+                                    >
+                                        Bulk Actions
+                                    </button>
+                                    <div className="form__filter">
+                                        <p>Filter</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     ) : (
