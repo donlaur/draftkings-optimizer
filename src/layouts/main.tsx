@@ -1,17 +1,22 @@
 import React from 'react';
 import { Nav } from '../components/global/nav';
-// import SEO from '../components/global/seo';
+import SEO from '../components/global/seo';
 
-export function Main({ children }) {
-	return (
-		<>
-			<Nav/>
+interface IMainLayoutProps {
+    children: React.ReactNode;
+    title?: string;
+}
 
-			<main className="main">
-				<div className="main__container">
-					{children}
-				</div>
-			</main>
-		</>
-	)
+export function Main({ children, title }: IMainLayoutProps) {
+    return (
+        <>
+            <SEO title={title} />
+
+            <Nav />
+
+            <main className="main">
+                <div className="main__container">{children}</div>
+            </main>
+        </>
+    );
 }
