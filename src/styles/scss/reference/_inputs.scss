@@ -23,6 +23,7 @@
 
 @mixin button {
     @include clear-button;
+    @include box-shadow;
 
     @include font-weight(800);
     @include background-color-states($white, $primary);
