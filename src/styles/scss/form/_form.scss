@@ -65,5 +65,21 @@ $block: 'form';
 
     &__bar {
         display: flex;
+        justify-content: space-between;
+        width: 100%;
     }
+
+    // &__optimize {
+    //     @include box-shadow;
+
+    //     position: fixed;
+    //     bottom: 1rem;
+    //     left: 50%;
+    //     transform: translate3d(-50%, 0, 0);
+
+    //     @include media-min(md) {
+    //         // bottom: 0;
+    //         position: static;
+    //     }
+    // }
 }

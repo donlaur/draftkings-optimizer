@@ -3,7 +3,17 @@
 $block: 'panel';
 
 .#{$block} {
+    margin-bottom: 2rem;
     margin-top: 2rem;
+
+    @include media-min(md) {
+        margin-bottom: 5rem;
+        margin-top: 5rem;
+    }
+
+    > * {
+        margin-top: 1.5rem;
+    }
 
     .table-wrapper {
         margin-left: -$padding-horizontal;
@@ -19,10 +29,6 @@ $block: 'panel';
         @include font-weight(200);
         @include font-size-36;
 
-        margin-top: 2rem;
-
-        @include media-min(md) {
-            margin-top: 5rem;
-        }
+        margin: 0;
     }
 }

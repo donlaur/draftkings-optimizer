@@ -316,12 +316,6 @@ export default function IndexPage() {
                                     </div>
                                 )}
                             </Downshift>
-                            <button
-                                className="button button--light"
-                                type="submit"
-                            >
-                                Optimize
-                            </button>
                         </div>
                     </div>
                     {isError && errorMessage ? (
@@ -335,7 +329,7 @@ export default function IndexPage() {
                     )}
                     {players ? (
                         <div className="form__row row">
-                            <div className="form__col form__col--inline col">
+                            <div className="form__col col">
                                 <div className="form__bar">
                                     <button
                                         className="form__button button button--sm-bord-rad"
@@ -343,9 +337,15 @@ export default function IndexPage() {
                                     >
                                         Bulk Actions
                                     </button>
-                                    <div className="form__filter">
+                                    {/* <div className="form__filter">
                                         <p>Filter</p>
-                                    </div>
+                                    </div> */}
+                                    <button
+                                        className="form__optimize button button--light"
+                                        type="submit"
+                                    >
+                                        Optimize
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -353,20 +353,18 @@ export default function IndexPage() {
                         <></>
                     )}
                 </form>
-            </Panel>
 
-            {players ? (
-                <Panel>
+                {players ? (
                     <Table
                         players={players}
                         isOptimized={isOptimized}
                         optimizedLineups={optimizedLineups}
                         setPlayers={setPlayers}
                     />
-                </Panel>
-            ) : (
-                <></>
-            )}
+                ) : (
+                    <></>
+                )}
+            </Panel>
         </Main>
     );
 }

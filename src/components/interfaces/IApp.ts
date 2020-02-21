@@ -1,33 +1,23 @@
+import { IDraftKingsPlayer } from './IDraftKingsResponse';
+
 export interface IResponse {
-	lineups: ILineup[],
-	success: boolean,
-	message: string | null
+    lineups: ILineup[];
+    success: boolean;
+    message: string | null;
 }
 
 export interface ILineup {
-	players: IPlayer[],
-	totalSalary: number,
-	totalFppg: number
-}
-
-interface IPlayer {
-	firstName: string,
-	fppg: number,
-	gameInfo: string,
-	id: string,
-	lastName: string
-	positions: string[],
-	salary: number,
-	status: string,
-	team: string
+    players: IDraftKingsPlayer[];
+    totalSalary: number;
+    totalFppg: number;
 }
 
 export interface IContest {
-	draft_group_id: number,
-	name: string
+    draft_group_id: number;
+    name: string;
 }
 
 export interface IGroup {
-	id: number,
-	sport_id: string
+    id: number;
+    sport_id: string;
 }
