@@ -53,9 +53,9 @@ export default function IndexPage() {
 
             setLoadingContests(false);
         })();
-    }, [isLoadingContests]);
+    }, []);
 
-    // Up
+    // Get players
     useEffect(() => {
         if (!draftGroupId) {
             return;

@@ -116,7 +116,7 @@ export function Table({
                                     {player.last_name}
                                 </td>
                                 <td className="table__cell">
-                                    {player.position.name}
+                                    {player.position}
                                 </td>
                                 <td className="table__cell">{player.team}</td>
                                 <td className="table__cell text-align-right">
@@ -124,7 +124,7 @@ export function Table({
                                         style: 'currency',
                                         currency: 'USD',
                                         minimumFractionDigits: 0,
-                                    }).format(player.draft.salary)}
+                                    }).format(player.salary)}
                                 </td>
                                 <td className="table__cell text-align-right">
                                     {player.points_per_contest}
